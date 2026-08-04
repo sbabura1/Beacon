@@ -111,13 +111,6 @@ Update it with your Script ID:
   "rootDir": "."
 }
 ```
-
-Verify that the correct Apps Script project is connected:
-
-```bash
-clasp open
-```
-
 ---
 
 ## 6. Push the Code to Apps Script
