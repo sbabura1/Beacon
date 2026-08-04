@@ -121,12 +121,6 @@ Upload the local project files:
 clasp push
 ```
 
-If required:
-
-```bash
-clasp push --force
-```
-
 After pushing:
 
 1. Open the Apps Script editor.
