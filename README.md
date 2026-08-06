@@ -98,13 +98,25 @@ cp .clasp.example.json .clasp.json
 
 Then paste their Apps Script ID into `.clasp.json`.
 
-This guide covers the main steps required to clone this standalone repository, connect it to Google Apps Script, and deploy changes.
+This guide covers the main steps required to fork this repository, clone your fork, connect it to Google Apps Script, and deploy changes.
 
 ---
 
-## 1. Clone the Repository
+## 1. Fork the Repository
 
-Clone your Beacon repository:
+Open the Beacon repository:
+
+```text
+https://github.com/sbabura1/Beacon
+```
+
+Click **Fork** and create a copy under your own GitHub account.
+
+---
+
+## 2. Clone Your Fork
+
+Clone your forked Beacon repository:
 
 ```bash
 git clone https://github.com/<YOUR_GITHUB_USERNAME>/Beacon.git
@@ -118,9 +130,9 @@ cd Beacon
 
 ---
 
-## 2. Verify the Remote
+## 3. Verify the Remote
 
-This project is intended to be a standalone repository. It should only need your `origin` remote:
+This project is intended to be a standalone repository. Your fork should only need your `origin` remote:
 
 ```bash
 git remote -v
@@ -134,7 +146,7 @@ origin    https://github.com/<YOUR_GITHUB_USERNAME>/Beacon.git
 
 ---
 
-## 3. Install clasp
+## 4. Install clasp
 
 Install Google Apps Script CLI:
 
@@ -158,7 +170,7 @@ Use the Google account that has access to the required Google Sheet or Apps Scri
 
 ---
 
-## 4. Change the Apps Script ID
+## 5. Change the Apps Script ID
 
 Open the Google Sheet that you want to use.
 
@@ -192,7 +204,7 @@ Update it with your Script ID:
 ```
 ---
 
-## 5. Push the Code to Apps Script
+## 6. Push the Code to Apps Script
 
 Upload the local project files:
 
