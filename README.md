@@ -166,13 +166,13 @@ Login to Google:
 clasp login
 ```
 
-Use the Google account that has access to the required Google Sheet or Apps Script project.
+Use the Google account that has access to the required Google Sheets, Docs, or Slides file and Apps Script project.
 
 ---
 
 ## 5. Change the Apps Script ID
 
-Open the Google Sheet that you want to use.
+Open the Google Sheets, Docs, or Slides file that you want to use.
 
 Go to:
 
@@ -217,9 +217,9 @@ After pushing:
 1. Open the Apps Script editor.
 2. Run the `onOpen` function.
 3. Approve the requested permissions.
-4. Return to the Google Sheet.
+4. Return to the Google file.
 5. Refresh the page.
 
-The SHINE menu should appear in Google Sheets.
+The SHINE menu should appear in Google Sheets, Docs, or Slides.
 
 ---
