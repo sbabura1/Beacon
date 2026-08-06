@@ -1,0 +1,72 @@
+.fancy-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  pointer-events: none;
+  border-radius: 999px;
+  opacity: 0;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+
+.fancy-cursor {
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background:
+    radial-gradient(circle, rgba(255, 196, 61, 0.92) 0 16%, rgba(8, 168, 138, 0.72) 18% 38%, transparent 42%),
+    conic-gradient(from 90deg, #08a88a, #19b7c9, #178bd1, #ef3b78, #f43b39, #ff7a22, #ffc43d, #89c83d, #08a88a);
+  box-shadow: 0 0 18px rgba(8, 168, 138, 0.68), 0 0 34px rgba(59, 130, 246, 0.24);
+  transition: width 0.2s ease, height 0.2s ease, margin 0.2s ease, opacity 0.18s ease, filter 0.2s ease;
+}
+
+.fancy-cursor-trail-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9998;
+  pointer-events: none;
+  border-radius: 999px;
+  will-change: transform;
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease;
+}
+
+.has-fancy-cursor .fancy-cursor {
+  opacity: 1;
+}
+
+.has-fancy-cursor .fancy-cursor-trail-dot {
+  opacity: inherit;
+}
+
+.cursor-idle .fancy-cursor-trail-dot {
+  opacity: 0.03 !important;
+}
+
+.cursor-idle .fancy-cursor {
+  filter: saturate(0.85);
+}
+
+.cursor-click .fancy-cursor {
+  transition: width 0.12s ease, height 0.12s ease, margin 0.12s ease;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+}
+
+.cursor-interactive .fancy-cursor {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  filter: saturate(1.35);
+  box-shadow: 0 0 22px rgba(255, 196, 61, 0.8), 0 0 44px rgba(8, 168, 138, 0.32);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fancy-cursor-trail-dot {
+    display: none;
+  }
+}

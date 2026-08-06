@@ -7,17 +7,20 @@ function onOpen() {
 
 function showSidebar() {
   const html = HtmlService.createHtmlOutputFromFile('Sidebar')
-    .setTitle('SHINE');
+    .setTitle('Beacon');
 
   SpreadsheetApp.getUi().showSidebar(html);
 }
 
-function showDialog() {
-  const html = HtmlService.createHtmlOutputFromFile('Dialog')
-    .setWidth(760)
-    .setHeight(720);
+function showDialog(initialRoute) {
+  const template = HtmlService.createTemplateFromFile('Dialog');
+  template.initialRoute = initialRoute || 'start';
 
-  SpreadsheetApp.getUi().showModelessDialog(html, 'SHINE Health Data Lab');
+  const html = template.evaluate()
+    .setWidth(1180)
+    .setHeight(760);
+
+  SpreadsheetApp.getUi().showModelessDialog(html, 'Beacon');
 }
 
 // fallback only

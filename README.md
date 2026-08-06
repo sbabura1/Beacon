@@ -1,61 +1,140 @@
-# SHINE Setup Guide
+# Beacon Setup Guide
 
-This guide covers the main steps required to fork the repository, clone it, connect it to Google Apps Script, pull updates, and deploy changes.
+## Frontend workflow
 
----
-
-## 1. Fork the Repository
-
-Open the main SHINE repository:
+This repository now uses a Vite React frontend. The editable source lives in:
 
 ```text
-https://github.com/SchoolFuel/Shine
+src/
 ```
 
-Click **Fork** and create a copy under your own GitHub account.
+Important files:
+
+```text
+src/App.jsx                    Frontend routes and shared simulation state
+src/data/simulationData.js     Mock simulation data
+src/data/navigatorData.js      Mock navigator data
+src/pages/                     Simulation and navigator screens
+src/components/                Reusable UI components
+src/styles/                    SHINE theme, layout, animation, and view styling
+```
+
+Install dependencies once:
+
+```bash
+npm install
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://127.0.0.1:5173
+```
+
+Useful local routes:
+
+```text
+http://127.0.0.1:5173/#/navigator
+http://127.0.0.1:5173/#/start
+http://127.0.0.1:5173/#/sprint
+http://127.0.0.1:5173/#/ido
+http://127.0.0.1:5173/#/wedo
+http://127.0.0.1:5173/#/youdo
+http://127.0.0.1:5173/#/brief
+```
+
+Build and validate:
+
+```bash
+npm run lint
+npm run build
+```
+
+## Google Apps Script deploy workflow
+
+Do not edit the generated Apps Script HTML directly unless you are fixing a deploy-only issue.
+Edit the React source in `src/`, then generate the Apps Script bundles:
+
+```bash
+npm run build:gas
+```
+
+This creates deploy-ready `Dialog.html` and `Sidebar.html` from the Vite build.
+
+Push to Apps Script:
+
+```bash
+clasp push
+```
+
+Or run both steps:
+
+```bash
+npm run push:gas
+```
+
+The `.claspignore` file intentionally pushes only:
+
+```text
+appsscript.json
+Code.js
+Dialog.html
+Sidebar.html
+```
+
+Do not commit `.clasp.json`; it contains the local Apps Script project binding. Use `.clasp.example.json` as the template for new developers.
+
+For a new developer:
+
+```bash
+cp .clasp.example.json .clasp.json
+```
+
+Then paste their Apps Script ID into `.clasp.json`.
+
+This guide covers the main steps required to clone this standalone repository, connect it to Google Apps Script, and deploy changes.
 
 ---
 
-## 2. Clone Your Fork
+## 1. Clone the Repository
 
-Clone your forked repository:
+Clone your Beacon repository:
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/Shine.git
+git clone https://github.com/<YOUR_GITHUB_USERNAME>/Beacon.git
 ```
 
 Move into the project folder:
 
 ```bash
-cd Shine
+cd Beacon
 ```
 
 ---
 
-## 3. Add the Main Repository as Upstream
+## 2. Verify the Remote
 
-Add the original SHINE repository:
-
-```bash
-git remote add upstream https://github.com/SchoolFuel/Shine.git
-```
-
-Verify the remotes:
+This project is intended to be a standalone repository. It should only need your `origin` remote:
 
 ```bash
 git remote -v
 ```
 
-You should see:
+Expected shape:
 
 ```text
-origin    https://github.com/<YOUR_GITHUB_USERNAME>/Shine.git
-upstream  https://github.com/SchoolFuel/Shine.git
+origin    https://github.com/<YOUR_GITHUB_USERNAME>/Beacon.git
 ```
 
 ---
 
-## 4. Install clasp
+## 3. Install clasp
 
 Install Google Apps Script CLI:
 
@@ -79,7 +158,7 @@ Use the Google account that has access to the required Google Sheet or Apps Scri
 
 ---
 
-## 5. Change the Apps Script ID
+## 4. Change the Apps Script ID
 
 Open the Google Sheet that you want to use.
 
@@ -97,7 +176,7 @@ Project Settings → Script ID
 
 Copy the Script ID.
 
-In the local SHINE project, open:
+In the local Beacon project, open:
 
 ```text
 .clasp.json
@@ -113,7 +192,7 @@ Update it with your Script ID:
 ```
 ---
 
-## 6. Push the Code to Apps Script
+## 5. Push the Code to Apps Script
 
 Upload the local project files:
 

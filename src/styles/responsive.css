@@ -1,0 +1,224 @@
+﻿@media (max-width: 1080px) {
+  .studio-grid {
+    grid-template-columns: minmax(220px, 270px) minmax(0, 1fr);
+  }
+
+  .current-simulation-view.is-active {
+    grid-template-columns: minmax(220px, 270px) minmax(0, 1fr);
+  }
+
+  .beacon-sidebar {
+    grid-column: 1 / -1;
+    position: static;
+  }
+
+  .beacon-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 761px) {
+  .current-simulation-view.is-active {
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  }
+
+  .current-simulation-view.is-active .beacon-sidebar {
+    grid-column: 2;
+    position: static;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .beacon-mascot,
+  .beacon-mascot__image,
+  .beacon-mascot__glow,
+  .beacon-brand.app-brand,
+  .student-avatar,
+  .navigator-scroll > *,
+  .view-stack > *,
+  .workspace > *,
+  .current-simulation-panel,
+  .current-simulation-workspace,
+  .progress-fill,
+  .sound-toggle__thumb,
+  .answer-option {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-title-card {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  .studio-grid,
+  .current-simulation-view.is-active,
+  .pathway-grid,
+  .metric-grid,
+  .answer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .current-simulation-view.is-active .current-simulation-panel {
+    transform: none;
+  }
+
+  .challenge-sidebar,
+  .beacon-sidebar {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .workspace {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .studio-card h1 {
+    font-size: 25px;
+  }
+
+  .beacon-brand.app-brand {
+    min-width: 0;
+  }
+
+  .feature-actions,
+  .nav-controls {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .welcome-card {
+    grid-template-columns: minmax(0, 1fr) 50px;
+  }
+
+  .student-avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .student-avatar--image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .career-path-card {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .path-duration {
+    grid-column: 2;
+  }
+
+  .beacon-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-title-card {
+    gap: 12px;
+    width: calc(100% - 24px);
+    margin: 10px auto 8px;
+    padding: 14px 12px 12px;
+  }
+
+  .navigator-scroll,
+  .studio-grid,
+  .current-simulation-view {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .studio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .studio-card,
+  .recommendation-card {
+    padding: 16px;
+  }
+
+  .welcome-card {
+    grid-template-columns: minmax(0, 1fr) 46px;
+    gap: 10px;
+  }
+
+  .student-avatar {
+    width: 62px;
+    height: 62px;
+  }
+
+  .student-avatar--image {
+    width: 46px;
+    height: 46px;
+  }
+
+  .beacon-brand {
+    gap: 10px;
+  }
+
+  .beacon-brand.app-brand {
+    width: min(100%, 185px);
+  }
+
+  .beacon-brand.app-brand .beacon-brand__mascot {
+    width: 54px;
+    height: 54px;
+  }
+
+  .beacon-brand__copy h2 {
+    font-size: 15px;
+  }
+
+  .beacon-brand__copy p {
+    font-size: 13px;
+  }
+
+  .studio-card h1,
+  .recommendation-card h1 {
+    font-size: 24px;
+  }
+
+  .button-row,
+  .badge-row {
+    align-items: flex-start;
+  }
+
+  .recommendation-actions {
+    gap: 8px;
+  }
+
+  .recommendation-actions .primary-button {
+    padding: 8px 9px;
+    font-size: 12px;
+  }
+
+  .title-card-actions {
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+
+  .title-card-actions .icon-button {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    min-height: 30px;
+  }
+}

@@ -1,0 +1,184 @@
+﻿.navigator-shell {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+.studio-shell {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.navigator-scroll {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  min-width: 0;
+}
+
+.navigator-scroll > *,
+.view-stack > *,
+.workspace > *,
+.current-simulation-panel,
+.current-simulation-workspace {
+  animation: shineCardEnter 260ms ease both;
+}
+
+@supports (animation-timeline: view()) {
+  .navigator-scroll > *,
+  .view-stack > *,
+  .workspace > *,
+  .current-simulation-view > *,
+  .skill-group,
+  .career-path-card,
+  .simulation-step-card {
+    animation-name: shineCardEnter, shineScrollFade;
+    animation-duration: 260ms, 1ms;
+    animation-timing-function: ease, linear;
+    animation-fill-mode: both, both;
+    animation-timeline: auto, view();
+    animation-range: normal, exit -8% exit 86%;
+    transform-origin: 50% 0%;
+  }
+}
+
+.title-card-actions .icon-button {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border-radius: 10px;
+}
+
+.title-card-actions .icon-button {
+  border-color: transparent;
+  background: transparent;
+  color: var(--shine-teal);
+}
+
+.title-card-actions .icon-button:hover {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.learner-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  color: var(--shine-green-dark);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.welcome-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.welcome-card__copy {
+  min-width: 0;
+}
+
+.welcome-card .progress-box,
+.welcome-card .learner-summary {
+  grid-column: 1 / -1;
+}
+
+.student-avatar {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--shine-surface-muted);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 24px var(--shine-overlay-card);
+  overflow: hidden;
+}
+
+.student-avatar img,
+.student-avatar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-avatar--image img {
+  object-fit: cover;
+  transform: none;
+  filter: none;
+}
+
+.student-avatar--image {
+  align-self: start;
+  justify-self: end;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--shine-border);
+  border-radius: 999px;
+  background: var(--shine-surface-subtle);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.student-avatar--initials {
+  border: 2px solid var(--shine-teal-border);
+  background: linear-gradient(135deg, var(--shine-teal), var(--shine-blue));
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.student-avatar__ring {
+  fill: url(#studentAvatarBg);
+}
+
+.student-avatar__backdrop {
+  fill: var(--shine-surface-subtle);
+}
+
+.student-avatar__hair {
+  fill: var(--shine-charcoal, #202020);
+}
+
+.student-avatar__face,
+.student-avatar__neck,
+.student-avatar__head {
+  fill: #d99a73;
+}
+
+.student-avatar__shirt,
+.student-avatar__body {
+  fill: var(--shine-teal);
+}
+
+.student-avatar__collar,
+.student-avatar__accent {
+  fill: none;
+  stroke: var(--shine-yellow);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.student-avatar__eye {
+  fill: #202020;
+}
+
+.student-avatar__smile {
+  fill: none;
+  stroke: #202020;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
