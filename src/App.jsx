@@ -16,14 +16,16 @@ import { YouDoView } from "./pages/YouDoView.jsx";
 import { useShineSound } from "./hooks/useShineSound.js";
 import { runGas } from "./services/gas.js";
 
-const routeOrder = ["continue", "start", "sprint", "ido", "wedo", "youdo", "brief"];
 function getInitialRoute() {
   if (window.__SHINE_INITIAL_ROUTE) {
     return window.__SHINE_INITIAL_ROUTE;
   }
 
   const hash = window.location.hash.replace("#/", "");
-  return hash === "navigator" || routeOrder.includes(hash) ? hash : "navigator";
+  if (hash === "navigator" || hash === "continue" || hash === "challenge-paths" || hash.startsWith("skill-")) {
+    return hash;
+  }
+  return "navigator";
 }
 
 export default function App() {
@@ -88,6 +90,29 @@ export default function App() {
     navigate("continue");
   }
 
+  async function openChallengePath() {
+    try {
+      await runGas("showDialog", "challenge-paths");
+      return;
+    } catch {
+      // Local dev fallback: show the challenge path screen in this window.
+    }
+
+    navigate("challenge-paths");
+  }
+
+  async function openSkillPath(skillId) {
+    const routeName = `skill-${skillId}`;
+    try {
+      await runGas("showDialog", routeName);
+      return;
+    } catch {
+      // Local dev fallback: show the skill question group in this window.
+    }
+
+    navigate(routeName);
+  }
+
   function openBeaconAction(action) {
     setBeaconAction(action);
     if (action === "Give me a hint") {
@@ -108,6 +133,8 @@ export default function App() {
       {route === "navigator" ? (
         <NavigatorView
           onOpenSimulation={openCurrentSimulation}
+          onOpenChallengePath={openChallengePath}
+          onOpenSkillPath={openSkillPath}
           soundEnabled={sound.soundEnabled}
           onToggleSound={sound.toggleSound}
           theme={theme}
@@ -123,8 +150,10 @@ export default function App() {
             onHome={goHome}
           />
 
-          {route === "continue" ? (
+          {route === "continue" || route === "challenge-paths" || route.startsWith("skill-") ? (
             <CurrentSimulationView
+              mode={route.startsWith("skill-") ? "skill" : route === "challenge-paths" ? "path" : "challenge"}
+              skillId={route.startsWith("skill-") ? route.replace("skill-", "") : ""}
               onAward={award}
               setBeaconMessage={updateBeacon}
               onBeaconAction={openBeaconAction}

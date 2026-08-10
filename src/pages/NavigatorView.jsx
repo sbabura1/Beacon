@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Check, Circle, Lock, Moon, Play, Settings, ShieldAlert, Square } from "lucide-react";
-import { careerPathways, learner, recommendedSkill, skillConstellation, skillGroups } from "../data/navigatorData.js";
+import { Check, Circle, Moon, Play, Settings, ShieldAlert, Square } from "lucide-react";
+import { careerPathways, learner, skillConstellation } from "../data/navigatorData.js";
+import { challengePathData, challengePathSkills, skillQuestionGroups } from "../data/simulationData.js";
 import { ProgressBar } from "../components/ProgressBar.jsx";
 import { AppTitleCard } from "../components/AppTitleCard.jsx";
 import { StudentAvatar } from "../components/StudentAvatar.jsx";
@@ -13,7 +14,7 @@ const iconMap = {
   risk: ShieldAlert
 };
 
-export function NavigatorView({ onOpenSimulation, soundEnabled, onToggleSound, theme, onToggleTheme }) {
+export function NavigatorView({ onOpenSimulation, onOpenChallengePath, onOpenSkillPath, soundEnabled, onToggleSound, theme, onToggleTheme }) {
   const [view, setView] = useState("home");
   const [selectedSkill, setSelectedSkill] = useState(null);
 
@@ -47,7 +48,7 @@ export function NavigatorView({ onOpenSimulation, soundEnabled, onToggleSound, t
             <section className="studio-card welcome-card">
               <div className="welcome-card__copy">
                 <h1>Welcome back, {learner.name}</h1>
-                <p>Your next best move is based on recent diagnostic work and your health-data investigation.</p>
+                <p>Start a Riverton challenge path, review core quantitative skills, or continue the next data-driven task.</p>
               </div>
               <StudentAvatar name={learner.name} imageSrc={mariaAvatarUrl} />
               <ProgressBar value={learner.moduleProgress} label="Module Complete" />
@@ -55,22 +56,25 @@ export function NavigatorView({ onOpenSimulation, soundEnabled, onToggleSound, t
                 <span>XP {learner.xp}</span>
                 <span>{learner.level}</span>
               </div>
-            </section>
-
-            <section className="recommendation-card">
-              <span className="eyebrow">Today's Recommendation</span>
-              <h2>{recommendedSkill.title}</h2>
-              <p>{recommendedSkill.description}</p>
-              <div className="badge-row">
-                {recommendedSkill.tags.map((tag) => <span className="badge" key={tag}>{tag}</span>)}
+              <div className="home-summary-grid">
+                <div className="summary-tile">
+                  <span>Challenges</span>
+                  <strong>{challengePathData.length}</strong>
+                  <small>data-driven tasks</small>
+                </div>
+                <div className="summary-tile">
+                  <span>Skills</span>
+                  <strong>{challengePathSkills.length}</strong>
+                  <small>quantitative skills</small>
+                </div>
               </div>
               <div className="button-row recommendation-actions">
                 <button className="primary-button" type="button" onClick={onOpenSimulation}>Continue</button>
-                <button className="primary-button" type="button" onClick={() => setView("skills")}>Explore Skills</button>
+                <button className="primary-button" type="button" onClick={onOpenChallengePath}>Challenge Path</button>
               </div>
               <div className="feature-actions">
-                <button className="feature-button" type="button" onClick={() => setView("pathways")}>
-                  Career Pathways
+                <button className="feature-button" type="button" onClick={() => setView("skills")}>
+                  Explore Skills
                 </button>
                 <button className="feature-button" type="button" onClick={() => setView("constellation")}>
                   Skill Constellation
@@ -82,27 +86,37 @@ export function NavigatorView({ onOpenSimulation, soundEnabled, onToggleSound, t
 
         {view === "skills" && (
           <>
-            {skillGroups.map((group) => (
-              <section className="skill-group" key={group.title}>
+            {skillQuestionGroups.map((group) => (
+              <section className="skill-group" key={group.id}>
                 <div className="section-heading">
                   <h2>{group.title}</h2>
-                  <span>{group.skills.length}</span>
+                  <span>{group.questions.length}</span>
                 </div>
-                {group.skills.map((skill) => (
+                <button
+                  className="skill-item active"
+                  type="button"
+                  onClick={() => onOpenSkillPath(group.id)}
+                >
+                  <span className="skill-status"><Play size={16} /></span>
+                  <span>
+                    <strong>Start {group.title}</strong>
+                    <small>{group.description}</small>
+                  </span>
+                  <span className="badge">{group.questions.length} questions</span>
+                </button>
+                {group.questions.slice(0, 3).map((question) => (
                   <button
-                    className={`skill-item ${skill.status}`}
+                    className="skill-item"
                     type="button"
-                    key={skill.title}
-                    onClick={() => skill.status !== "locked" && openDetail(skill, "skills")}
+                    key={question.id}
+                    onClick={() => onOpenSkillPath(group.id)}
                   >
-                    <span className="skill-status">
-                      {skill.status === "done" ? <Check size={16} /> : skill.status === "locked" ? <Lock size={16} /> : <Play size={16} />}
-                    </span>
+                    <span className="skill-status"><Check size={16} /></span>
                     <span>
-                      <strong>{skill.title}</strong>
-                      <small>{skill.description}</small>
+                      <strong>{question.pathTitle}</strong>
+                      <small>{question.prompt}</small>
                     </span>
-                    <span className="badge">{skill.progress}%</span>
+                    <span className="badge">Q{question.questionIndex + 1}</span>
                   </button>
                 ))}
               </section>

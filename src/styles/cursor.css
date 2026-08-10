@@ -65,6 +65,27 @@
   box-shadow: 0 0 22px rgba(255, 196, 61, 0.8), 0 0 44px rgba(8, 168, 138, 0.32);
 }
 
+:root[data-theme="light"] .fancy-cursor,
+:root[data-theme="light"] .fancy-cursor-trail-dot {
+  mix-blend-mode: multiply;
+}
+
+:root[data-theme="light"] .fancy-cursor {
+  border-color: rgba(20, 23, 21, 0.42);
+  background:
+    radial-gradient(circle, rgba(20, 23, 21, 0.95) 0 14%, rgba(255, 196, 61, 0.9) 16% 34%, transparent 40%),
+    conic-gradient(from 90deg, #056354, #0f6fbf, #c92f66, #dc3d3d, #e05f0f, #d69712, #078570, #056354);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75), 0 0 18px rgba(7, 133, 112, 0.38);
+}
+
+:root[data-theme="light"] .fancy-cursor-trail-dot {
+  filter: saturate(1.45) contrast(1.12);
+}
+
+:root[data-theme="light"] .cursor-interactive .fancy-cursor {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.82), 0 0 20px rgba(214, 151, 18, 0.5), 0 0 36px rgba(7, 133, 112, 0.22);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fancy-cursor-trail-dot {
     display: none;
