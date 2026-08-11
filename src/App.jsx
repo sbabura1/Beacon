@@ -22,7 +22,7 @@ function getInitialRoute() {
   }
 
   const hash = window.location.hash.replace("#/", "");
-  if (hash === "navigator" || hash === "continue" || hash === "challenge-paths" || hash.startsWith("skill-")) {
+  if (hash === "navigator" || hash === "continue" || hash === "challenge-paths" || hash === "skills" || hash.startsWith("skill-")) {
     return hash;
   }
   return "navigator";
@@ -102,7 +102,7 @@ export default function App() {
   }
 
   async function openSkillPath(skillId) {
-    const routeName = `skill-${skillId}`;
+    const routeName = skillId ? `skill-${skillId}` : "skills";
     try {
       await runGas("showDialog", routeName);
       return;
@@ -150,9 +150,9 @@ export default function App() {
             onHome={goHome}
           />
 
-          {route === "continue" || route === "challenge-paths" || route.startsWith("skill-") ? (
+          {route === "continue" || route === "challenge-paths" || route === "skills" || route.startsWith("skill-") ? (
             <CurrentSimulationView
-              mode={route.startsWith("skill-") ? "skill" : route === "challenge-paths" ? "path" : "challenge"}
+              mode={route === "skills" || route.startsWith("skill-") ? "skill" : route === "challenge-paths" ? "path" : "challenge"}
               skillId={route.startsWith("skill-") ? route.replace("skill-", "") : ""}
               onAward={award}
               setBeaconMessage={updateBeacon}

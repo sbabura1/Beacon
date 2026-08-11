@@ -15,6 +15,12 @@
   .beacon-actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .level-picker,
+  .persona-list,
+  .audit-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 1180px) and (min-width: 761px) {
@@ -48,6 +54,17 @@
   .current-simulation-panel,
   .current-simulation-workspace,
   .progress-fill,
+  .progress-track,
+  .xp-burst,
+  .streak-badge,
+  .challenge-work-card,
+  .challenge-data-table::after,
+  .audit-issue,
+  .simulation-step-card.active,
+  .simulation-step-card.complete .skill-status,
+  .constellation-line::after,
+  .completion-overlay,
+  .completion-card,
   .sound-toggle__thumb,
   .answer-option {
     animation: none !important;
@@ -110,8 +127,8 @@
   }
 
   .student-avatar--image {
-    width: 50px;
-    height: 50px;
+    width: 58px;
+    height: 64px;
   }
 
   .career-path-card {
@@ -123,6 +140,11 @@
   }
 
   .beacon-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .home-summary-grid,
+  .challenge-summary-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -166,8 +188,8 @@
   }
 
   .student-avatar--image {
-    width: 46px;
-    height: 46px;
+    width: 52px;
+    height: 58px;
   }
 
   .beacon-brand {

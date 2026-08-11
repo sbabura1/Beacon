@@ -173,3 +173,217 @@
   }
 }
 
+@keyframes xpBurstFly {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20%) scale(0.72) rotate(calc(var(--burst-drift, 0) * -4deg));
+  }
+
+  18% {
+    opacity: 1;
+    transform: translate(calc(-50% + (var(--burst-drift, 0) * 8px)), -80%) scale(1.08) rotate(calc(var(--burst-drift, 0) * 3deg));
+  }
+
+  76% {
+    opacity: 0.92;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(calc(-150% + (var(--burst-drift, 0) * 34px)), -420%) scale(0.58) rotate(calc(var(--burst-drift, 0) * 8deg));
+  }
+}
+
+@keyframes progressRewardPulse {
+  0%,
+  100% {
+    filter: saturate(1);
+  }
+
+  45% {
+    filter: saturate(1.6) brightness(1.25);
+    box-shadow: 0 0 18px rgba(8, 168, 138, 0.75), 0 0 28px rgba(59, 130, 246, 0.38);
+  }
+}
+
+@keyframes progressTrackGlow {
+  0%,
+  100% {
+    box-shadow: none;
+  }
+
+  45% {
+    box-shadow: 0 0 0 4px rgba(8, 168, 138, 0.12), 0 0 22px rgba(8, 168, 138, 0.35);
+  }
+}
+
+@keyframes answerShake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  12% {
+    transform: translateX(-14px) rotate(-1.8deg);
+  }
+
+  25% {
+    transform: translateX(13px) rotate(1.6deg);
+  }
+
+  38% {
+    transform: translateX(-11px) rotate(-1.2deg);
+  }
+
+  50% {
+    transform: translateX(9px) rotate(1deg);
+  }
+
+  65% {
+    transform: translateX(-6px) rotate(-0.6deg);
+  }
+
+  82% {
+    transform: translateX(3px) rotate(0.3deg);
+  }
+}
+
+@keyframes errorPanelPulse {
+  0%,
+  100% {
+    box-shadow: var(--shine-shadow);
+  }
+
+  20% {
+    box-shadow: 0 0 0 2px rgba(244, 59, 57, 0.48), 0 0 30px rgba(244, 59, 57, 0.16);
+  }
+
+  45% {
+    box-shadow: 0 0 0 3px rgba(244, 59, 57, 0.34), 0 18px 58px rgba(244, 59, 57, 0.18);
+  }
+
+  72% {
+    box-shadow: 0 0 0 1px rgba(244, 59, 57, 0.24), 0 12px 34px rgba(244, 59, 57, 0.1);
+  }
+}
+
+@keyframes successPanelLift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes activeStepGlow {
+  0%,
+  100% {
+    box-shadow: inset 4px 0 0 var(--shine-teal), 0 0 0 rgba(8, 168, 138, 0);
+  }
+
+  50% {
+    box-shadow: inset 4px 0 0 var(--shine-teal), 0 0 22px rgba(8, 168, 138, 0.22);
+  }
+}
+
+@keyframes completeCheckPop {
+  0% {
+    transform: scale(0.74);
+  }
+
+  60% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes questionCardSwap {
+  from {
+    opacity: 0;
+    transform: translateX(14px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes tableScan {
+  from {
+    transform: translateX(-110%);
+  }
+
+  to {
+    transform: translateX(110%);
+  }
+}
+
+@keyframes milestoneSpark {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  35% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.7);
+  }
+}
+
+@keyframes streakBadgePop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes constellationFlow {
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes completionBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes completionCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+

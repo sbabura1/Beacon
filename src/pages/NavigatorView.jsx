@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Check, Circle, Moon, Play, Settings, ShieldAlert, Square } from "lucide-react";
-import { careerPathways, learner, skillConstellation } from "../data/navigatorData.js";
-import { challengePathData, challengePathSkills, skillQuestionGroups } from "../data/simulationData.js";
+import { Circle, Moon, Settings, ShieldAlert, Square } from "lucide-react";
+import { careerPathways, learner } from "../data/navigatorData.js";
+import { challengePathData, challengePathSkills, challengeQuestions, personaLevels, skillQuestionGroups } from "../data/simulationData.js";
 import { ProgressBar } from "../components/ProgressBar.jsx";
 import { AppTitleCard } from "../components/AppTitleCard.jsx";
 import { StudentAvatar } from "../components/StudentAvatar.jsx";
-import mariaAvatarUrl from "../assets/student-avatar-maria.png";
+import rishiAvatarUrl from "../assets/student-avatar-rishi.png";
 
 const iconMap = {
   square: Square,
@@ -13,6 +13,8 @@ const iconMap = {
   gear: Settings,
   risk: ShieldAlert
 };
+
+const constellationPositions = ["top-node wide", "middle-node active wide", "left-node wide", "right-node wide", "bottom-node active wide"];
 
 export function NavigatorView({ onOpenSimulation, onOpenChallengePath, onOpenSkillPath, soundEnabled, onToggleSound, theme, onToggleTheme }) {
   const [view, setView] = useState("home");
@@ -47,10 +49,11 @@ export function NavigatorView({ onOpenSimulation, onOpenChallengePath, onOpenSki
           <>
             <section className="studio-card welcome-card">
               <div className="welcome-card__copy">
+                <span className="eyebrow">Beacon Persona Simulations</span>
                 <h1>Welcome back, {learner.name}</h1>
-                <p>Start a Riverton challenge path, review core quantitative skills, or continue the next data-driven task.</p>
+                <p>Choose a role. Inspect the data. Solve the problem with Beacon as your SHINE AI guide.</p>
               </div>
-              <StudentAvatar name={learner.name} imageSrc={mariaAvatarUrl} />
+              <StudentAvatar name={learner.name} imageSrc={rishiAvatarUrl} />
               <ProgressBar value={learner.moduleProgress} label="Module Complete" />
               <div className="learner-summary">
                 <span>XP {learner.xp}</span>
@@ -60,20 +63,25 @@ export function NavigatorView({ onOpenSimulation, onOpenChallengePath, onOpenSki
                 <div className="summary-tile">
                   <span>Challenges</span>
                   <strong>{challengePathData.length}</strong>
-                  <small>data-driven tasks</small>
+                  <small>persona paths</small>
                 </div>
                 <div className="summary-tile">
-                  <span>Skills</span>
-                  <strong>{challengePathSkills.length}</strong>
-                  <small>quantitative skills</small>
+                  <span>Modes</span>
+                  <strong>{Object.keys(personaLevels).length}</strong>
+                  <small>difficulty levels</small>
+                </div>
+                <div className="summary-tile">
+                  <span>Activities</span>
+                  <strong>{challengeQuestions.length}</strong>
+                  <small>persona tasks</small>
                 </div>
               </div>
               <div className="button-row recommendation-actions">
                 <button className="primary-button" type="button" onClick={onOpenSimulation}>Continue</button>
-                <button className="primary-button" type="button" onClick={onOpenChallengePath}>Challenge Path</button>
+                <button className="primary-button" type="button" onClick={onOpenChallengePath}>Personas</button>
               </div>
               <div className="feature-actions">
-                <button className="feature-button" type="button" onClick={() => setView("skills")}>
+                <button className="feature-button" type="button" onClick={() => onOpenSkillPath()}>
                   Explore Skills
                 </button>
                 <button className="feature-button" type="button" onClick={() => setView("constellation")}>
@@ -81,46 +89,6 @@ export function NavigatorView({ onOpenSimulation, onOpenChallengePath, onOpenSki
                 </button>
               </div>
             </section>
-          </>
-        )}
-
-        {view === "skills" && (
-          <>
-            {skillQuestionGroups.map((group) => (
-              <section className="skill-group" key={group.id}>
-                <div className="section-heading">
-                  <h2>{group.title}</h2>
-                  <span>{group.questions.length}</span>
-                </div>
-                <button
-                  className="skill-item active"
-                  type="button"
-                  onClick={() => onOpenSkillPath(group.id)}
-                >
-                  <span className="skill-status"><Play size={16} /></span>
-                  <span>
-                    <strong>Start {group.title}</strong>
-                    <small>{group.description}</small>
-                  </span>
-                  <span className="badge">{group.questions.length} questions</span>
-                </button>
-                {group.questions.slice(0, 3).map((question) => (
-                  <button
-                    className="skill-item"
-                    type="button"
-                    key={question.id}
-                    onClick={() => onOpenSkillPath(group.id)}
-                  >
-                    <span className="skill-status"><Check size={16} /></span>
-                    <span>
-                      <strong>{question.pathTitle}</strong>
-                      <small>{question.prompt}</small>
-                    </span>
-                    <span className="badge">Q{question.questionIndex + 1}</span>
-                  </button>
-                ))}
-              </section>
-            ))}
           </>
         )}
 
@@ -154,20 +122,26 @@ export function NavigatorView({ onOpenSimulation, onOpenChallengePath, onOpenSki
           <>
             <section className="studio-card">
               <h1>Skill Constellation</h1>
-              <p>Skills are connected. Select a node to open a learning pathway.</p>
+              <p>Skills are connected across persona simulations. Select a node to open its practice questions.</p>
               <div className="constellation-map">
                 <span className="constellation-line vertical" />
                 <span className="constellation-line horizontal" />
-                {skillConstellation.map((node) => (
-                  <button
-                    className={`constellation-node ${node.className}`}
-                    type="button"
-                    key={node.title}
-                    onClick={() => openDetail(node, "constellation")}
-                  >
-                    {node.title}
-                  </button>
-                ))}
+                {challengePathSkills.map((node, index) => {
+                  const group = skillQuestionGroups.find((item) => item.id === node.id);
+
+                  return (
+                    <button
+                      className={`constellation-node ${constellationPositions[index] || ""}`}
+                      type="button"
+                      key={node.id}
+                      onClick={() => onOpenSkillPath(node.id)}
+                      title={`${group?.questions.length || 0} activities`}
+                    >
+                      <span>{node.title}</span>
+                      <small>{group?.questions.length || 0}</small>
+                    </button>
+                  );
+                })}
               </div>
             </section>
           </>

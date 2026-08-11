@@ -1,5 +1,5 @@
 export const learner = {
-  name: "Maria",
+  name: "Rishi",
   xp: 420,
   level: "Level 3",
   title: "Emerging Analyst",

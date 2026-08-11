@@ -1,480 +1,366 @@
-export const challengeSteps = [
-  { id: "start", number: 1, title: "Start", skill: "Research setup" },
-  { id: "sprint", number: 2, title: "SHINE Sprint", skill: "Fast fluency" },
-  { id: "ido", number: 3, title: "I Do", skill: "Worked example" },
-  { id: "wedo", number: 4, title: "We Do", skill: "Guided practice" },
-  { id: "youdo", number: 5, title: "You Do", skill: "Bivariate table" },
-  { id: "brief", number: 6, title: "QR Brief", skill: "Evidence claim" }
-];
+export const personaLevels = {
+  beginning: {
+    title: "Beginning",
+    description: "Build the routine with visible data-quality cues, formula prompts, and one-step calculations.",
+    auditNeed: 3,
+    auditPrompt: "Select the three obvious data-quality issues: one impossible value, one missing value, and one inconsistent category."
+  },
+  intermediate: {
+    title: "Intermediate",
+    description: "Apply the routine with fewer cues, multi-step calculations, and comparisons across variables.",
+    auditNeed: 3,
+    auditPrompt: "Select the three operational issues that could directly break a calculation: impossible value, missing value, and duplicate record."
+  },
+  advanced: {
+    title: "Advanced",
+    description: "Reason like a professional with ambiguous anomalies, trade-offs, and defensible recommendations.",
+    auditNeed: 5,
+    auditPrompt: "Select the five source-data issues that should be verified before analysis, leaving out the unrelated non-data option."
+  }
+};
 
-const rivertonSnapshotRows = [
-  ["Total population", "12,500", "100%"],
-  ["Below poverty line", "4,250", "Calculate"],
-  ["Uninsured residents", "2,125", "17%"],
-  ["No primary care provider", "3,000", "24%"]
-];
+const healthSheet = {
+  headers: ["Patient ID", "Neighborhood", "Age", "Insurance", "ER Visits", "Annual Cost"],
+  rows: [
+    ["P-101", "East", "46", "Uninsured", "4", "$6,120"],
+    ["P-102", "West", "31", "Medicaid", "1", "$980"],
+    ["P-103", "East", "999", "Uninsured", "3", "$4,700"],
+    ["P-104", "North", "58", "Medicare", "", "$2,450"],
+    ["P-105", "east", "43", "Uninsured", "5", "$7,250"],
+    ["P-105", "east", "43", "Uninsured", "5", "$7,250"],
+    ["P-107", "South", "29", "Private", "0", "$0"],
+    ["P-108", "West", "52", "Medicaid", "2", "2450"],
+    ["P-110", "East", "41", "Uninsured", "12", "$18,900"]
+  ],
+  issues: [
+    ["Impossible age", "P-103 has age 999."],
+    ["Missing value", "P-104 has no ER Visits value."],
+    ["Inconsistent category", "East and east should be standardized."],
+    ["Possible duplicate", "P-105 appears twice."],
+    ["Currency format", "2450 uses a different format."],
+    ["Dashboard color", "The dashboard color is not part of the source data."]
+  ],
+  auditCorrectByLevel: {
+    beginning: [0, 1, 2],
+    intermediate: [0, 1, 2],
+    advanced: [0, 1, 2, 3, 4]
+  }
+};
 
-const avoidableVisitRows = [
-  ["Emergency department", "900", "$1,250"],
-  ["Urgent care", "600", "$310"],
-  ["Community clinic", "1,500", "$145"]
-];
+const crimeSheet = {
+  headers: ["Case ID", "Date", "Precinct", "Type", "Hour", "Status"],
+  rows: [
+    ["C-201", "7/01/26", "South", "Burglary", "22", "Open"],
+    ["C-202", "7/02/26", "South", "Theft", "14", "Closed"],
+    ["C-203", "7/03/26", "North", "Burglary", "25", "Open"],
+    ["C-204", "07-04-2026", "South", "Theft", "9", "Open"],
+    ["C-205", "7/05/26", "", "Assault", "19", "Open"],
+    ["C-206", "7/06/26", "North", "burglary", "23", "Closed"],
+    ["C-206", "7/06/26", "North", "burglary", "23", "Closed"],
+    ["C-208", "7/08/26", "South", "Theft", "8", "Open"]
+  ],
+  issues: [
+    ["Impossible hour", "Hour 25 is invalid."],
+    ["Date format", "Dates use multiple formats."],
+    ["Missing precinct", "C-205 has no precinct."],
+    ["Category format", "Burglary and burglary differ."],
+    ["Possible duplicate", "C-206 appears twice."],
+    ["Officer uniform", "Uniform color is not part of this dataset."]
+  ],
+  auditCorrectByLevel: {
+    beginning: [0, 1, 2],
+    intermediate: [0, 1, 2],
+    advanced: [0, 1, 2, 3, 4]
+  }
+};
 
-const providerAccessRows = [
-  ["Insured", "680 with provider", "120 without"],
-  ["Uninsured", "70 with provider", "130 without"],
-  ["Total", "750 with provider", "250 without"]
-];
+const environmentSheet = {
+  headers: ["Meter ID", "Zone", "Households", "Daily Gallons", "Reading Date"],
+  rows: [
+    ["W-301", "Mesa", "800", "232000", "8/1/26"],
+    ["W-302", "Canyon", "500", "155000", "8/1/26"],
+    ["W-303", "Mesa", "0", "92000", "8/1/26"],
+    ["W-304", "Valley", "620", "", "8/1/26"],
+    ["W-305", "Canyon", "540", "1,620,000", "8/1/26"],
+    ["W-306", "mesa", "760", "218000", "08-01-2026"],
+    ["W-306", "mesa", "760", "218000", "08-01-2026"]
+  ],
+  issues: [
+    ["Invalid denominator", "W-303 has 0 households."],
+    ["Missing reading", "W-304 has no gallons value."],
+    ["Potential outlier", "W-305 is much higher than similar readings."],
+    ["Inconsistent zone", "Mesa and mesa differ."],
+    ["Possible duplicate", "W-306 appears twice."],
+    ["Map background", "The map background is not a row-level data issue."]
+  ],
+  auditCorrectByLevel: {
+    beginning: [0, 1, 2],
+    intermediate: [0, 1, 2],
+    advanced: [0, 1, 2, 3, 4]
+  }
+};
 
-const grantDecisionRows = [
-  ["Insurance enrollment", "$120,000", "900 residents"],
-  ["Prevention workshops", "$80,000", "1,400 residents"],
-  ["Data and evaluation", "$50,000", "Community-wide"],
-  ["Available grant", "$500,000", "Total"]
-];
+const sportsSheet = {
+  headers: ["Player", "Game", "Minutes", "FG Made", "FG Attempts", "Points"],
+  rows: [
+    ["Taylor", "1", "32", "8", "16", "21"],
+    ["Taylor", "2", "34", "9", "17", "24"],
+    ["Taylor", "3", "-5", "6", "14", "15"],
+    ["Jordan", "1", "30", "7", "15", "18"],
+    ["Jordan", "2", "31", "", "18", "22"],
+    ["Jordan", "2", "31", "", "18", "22"],
+    ["TAYLOR", "4", "36", "10", "19", "27"],
+    ["Taylor", "5", "35", "8", "0", "21"]
+  ],
+  issues: [
+    ["Impossible minutes", "Taylor game 3 has -5 minutes."],
+    ["Missing value", "Jordan game 2 lacks FG Made."],
+    ["Possible duplicate", "Jordan game 2 appears twice."],
+    ["Name format", "Taylor and TAYLOR differ."],
+    ["Invalid denominator", "21 points with 0 FG attempts needs investigation."],
+    ["Jersey color", "Jersey color is not part of the recorded performance data."]
+  ],
+  auditCorrectByLevel: {
+    beginning: [0, 1, 2],
+    intermediate: [0, 1, 2],
+    advanced: [0, 1, 2, 3, 4]
+  }
+};
 
-const evidenceSummaryRows = [
-  ["Economic need", "34%", "Below poverty line"],
-  ["Access gap", "65%", "Uninsured without provider"],
-  ["Cost pressure", "$509.50", "Weighted average visit cost"],
-  ["Available grant", "$500,000", "Intervention funding"]
-];
+function q(title, skill, scenario, prompt, answerType, expected, suffix, prefix, helper, feedback, options) {
+  return { title, skill, scenario, prompt, answerType, expected, suffix, prefix, helper, feedback, options };
+}
 
-export const challengePathSkills = [
-  { id: "percentages-rates", title: "Percentages & Rates", description: "Calculate part-to-whole rates and compare percentages." },
-  { id: "averages-totals", title: "Averages & Totals", description: "Combine totals and calculate representative values." },
-  { id: "data-relationships", title: "Data Relationships", description: "Read tables and compare groups fairly." },
-  { id: "budgeting-tradeoffs", title: "Budgeting & Trade-offs", description: "Use numbers to reason about funding decisions." },
-  { id: "evidence-reasoning", title: "Evidence & Reasoning", description: "Choose evidence and connect it to a recommendation." }
-];
-
-export const challengePathData = [
+export const personaData = [
   {
-    id: "community-need",
-    title: "Community Need",
-    description: "Understand who is most affected before Riverton spends its grant.",
-    questions: [
-      {
-        skillId: "percentages-rates",
-        skill: "Percentages & Rates",
-        prompt: "What percentage of Riverton residents live below the poverty line?",
-        helper: "Divide 4,250 by 12,500 and multiply by 100.",
-        expected: 34,
-        suffix: "%",
-        datasetTitle: "Riverton Community Snapshot",
-        rows: rivertonSnapshotRows,
-        feedback: "Correct. 4,250 divided by 12,500 equals 0.34, or 34%."
-      },
-      {
-        skillId: "averages-totals",
-        skill: "Averages & Totals",
-        prompt: "What is the average number of residents across the three need groups listed?",
-        helper: "Add 4,250, 2,125, and 3,000, then divide by 3.",
-        expected: 3125,
-        datasetTitle: "Riverton Community Snapshot",
-        rows: rivertonSnapshotRows,
-        feedback: "Correct. The average across the three listed need groups is 3,125 residents."
-      },
-      {
-        skillId: "data-relationships",
-        skill: "Data Relationships",
-        prompt: "How many more residents have no primary care provider than are uninsured?",
-        helper: "Subtract 2,125 uninsured residents from 3,000 residents with no provider.",
-        expected: 875,
-        datasetTitle: "Riverton Community Snapshot",
-        rows: rivertonSnapshotRows,
-        feedback: "Correct. 3,000 minus 2,125 equals 875 residents."
-      },
-      {
-        skillId: "budgeting-tradeoffs",
-        skill: "Budgeting & Trade-offs",
-        prompt: "If outreach costs $40 for each resident with no provider, what is the total outreach cost?",
-        helper: "Multiply 3,000 residents with no provider by $40.",
-        expected: 120000,
-        prefix: "$",
-        datasetTitle: "Riverton Community Snapshot",
-        rows: rivertonSnapshotRows,
-        feedback: "Correct. 3,000 times $40 equals $120,000."
-      },
-      {
-        skillId: "evidence-reasoning",
-        skill: "Evidence & Reasoning",
-        prompt: "Which rate is larger: uninsured residents or residents without a provider? Enter the larger percentage.",
-        helper: "Compare 17% uninsured with 24% without a provider.",
-        expected: 24,
-        suffix: "%",
-        datasetTitle: "Riverton Community Snapshot",
-        rows: rivertonSnapshotRows,
-        feedback: "Correct. 24% is larger, so provider access is the bigger rate in this snapshot."
-      }
-    ]
+    id: "health",
+    icon: "Hospital",
+    title: "Health Administrator",
+    color: "#078f72",
+    tag: "Improve access while controlling costs",
+    skills: ["Data Quality", "Percentages", "Weighted Average", "Bivariate Tables", "Budgeting"],
+    sheet: healthSheet,
+    levels: {
+      beginning: [
+        q("Economic Need", "Percentages", "Riverton has 12,500 residents; 4,250 live below poverty.", "What percentage live below poverty?", "number", 34, "%", "", "4,250 divided by 12,500 times 100.", "34% live below poverty."),
+        q("Access Gap", "Percentages", "130 of 200 uninsured residents lack a provider.", "What percentage lack a provider?", "number", 65, "%", "", "130 divided by 200 times 100.", "65% lack a provider."),
+        q("Average Care Cost", "Weighted Average", "900 ER visits at $1,250; 600 urgent-care at $310; 1,500 clinic visits at $145.", "What is the weighted average cost per visit?", "number", 509.5, "", "$", "Find total cost and divide by 3,000.", "$509.50 per visit.")
+      ],
+      intermediate: [
+        q("Compare Access Gaps", "Conditional Percentages", "Insured: 120 of 800 lack a provider. Uninsured: 130 of 200 lack one.", "How many percentage points higher is the uninsured rate?", "number", 50, " points", "", "Compute each percentage, then subtract.", "65% minus 15% equals 50 points."),
+        q("Avoidable Spending", "Rates + Cost", "28% of 900 ER visits could shift from $1,250 ER care to $145 clinic care.", "How much could be saved?", "number", 278460, "", "$", "28% of 900 times ($1,250 - $145).", "$278,460 in estimated savings."),
+        q("Program Reach", "Cost per Outcome", "Mobile clinic $280k/1,800 people; enrollment $120k/900; workshops $80k/1,400.", "Which has the lowest cost per person reached?", "choice", 2, "", "", "Divide cost by people reached.", "Workshops have the lowest cost per person.", ["Mobile clinic", "Enrollment support", "Prevention workshops"])
+      ],
+      advanced: [
+        q("Evaluate an Outlier", "Data Judgment", "P-110 shows 12 ER visits and $18,900 cost.", "What is the best response?", "choice", 1, "", "", "Outlier does not automatically mean error.", "Verify it; it may represent a high-need patient.", ["Delete it", "Verify it and investigate the case", "Replace with average", "Ignore it"]),
+        q("Optimize Grant", "Budget Optimization", "$500k budget. Mobile $280k/save $410k; enrollment $120k/save $185k; prevention $80k/save $96k; evaluation $50k.", "Which three-program package yields greatest projected savings within budget?", "choice", 0, "", "", "Compare package costs and projected savings.", "Mobile + enrollment + prevention costs $480k and projects $691k savings.", ["Mobile + Enrollment + Prevention", "Mobile + Enrollment + Evaluation", "Mobile + Prevention + Evaluation", "Enrollment + Prevention + Evaluation"]),
+        q("Recommendation", "Evidence-Based Reasoning", "You found a 50-point provider-access gap and high avoidable ER costs.", "Which recommendation best integrates the evidence?", "choice", 1, "", "", "Connect disparity, cost, targeting, and measurement.", "Target uninsured residents with enrollment and primary-care access while preserving evaluation.", ["Spend equally", "Target uninsured access and evaluate", "Expand ER only", "Remove outliers"])
+      ]
+    }
   },
   {
-    id: "cost-analysis",
-    title: "Cost Analysis",
-    description: "Estimate the cost pressure created by avoidable visits.",
-    questions: [
-      {
-        skillId: "percentages-rates",
-        skill: "Percentages & Rates",
-        prompt: "What percentage of the 3,000 avoidable visits were emergency department visits?",
-        helper: "Divide 900 emergency department visits by 3,000 total visits and multiply by 100.",
-        expected: 30,
-        suffix: "%",
-        datasetTitle: "Annual Avoidable Visits",
-        rows: avoidableVisitRows,
-        feedback: "Correct. 900 divided by 3,000 equals 30%."
-      },
-      {
-        skillId: "averages-totals",
-        skill: "Averages & Totals",
-        prompt: "What is the weighted average cost per visit?",
-        helper: "Divide the total cost, $1,528,500, by 3,000 visits.",
-        expected: 509.5,
-        prefix: "$",
-        datasetTitle: "Annual Avoidable Visits",
-        rows: avoidableVisitRows,
-        feedback: "Correct. The weighted average is $509.50 per visit."
-      },
-      {
-        skillId: "data-relationships",
-        skill: "Data Relationships",
-        prompt: "How many more community clinic visits were there than emergency department visits?",
-        helper: "Subtract 900 emergency department visits from 1,500 community clinic visits.",
-        expected: 600,
-        datasetTitle: "Annual Avoidable Visits",
-        rows: avoidableVisitRows,
-        feedback: "Correct. There were 600 more community clinic visits than emergency department visits."
-      },
-      {
-        skillId: "budgeting-tradeoffs",
-        skill: "Budgeting & Trade-offs",
-        prompt: "If 100 emergency department visits moved to community clinics, how much cost would be avoided?",
-        helper: "Subtract $145 from $1,250, then multiply the savings by 100 visits.",
-        expected: 110500,
-        prefix: "$",
-        datasetTitle: "Annual Avoidable Visits",
-        rows: avoidableVisitRows,
-        feedback: "Correct. Each shifted visit saves $1,105, so 100 visits save $110,500."
-      },
-      {
-        skillId: "evidence-reasoning",
-        skill: "Evidence & Reasoning",
-        prompt: "Rounded to the nearest dollar, what cost figure best summarizes the average visit burden?",
-        helper: "Round the weighted average cost of $509.50 to the nearest whole dollar.",
-        expected: 510,
-        prefix: "$",
-        datasetTitle: "Annual Avoidable Visits",
-        rows: avoidableVisitRows,
-        feedback: "Correct. $509.50 rounds to $510 as a clear evidence figure."
-      }
-    ]
+    id: "crime",
+    icon: "Detective",
+    title: "Crime Detective",
+    color: "#167fbd",
+    tag: "Use evidence to identify patterns",
+    skills: ["Data Quality", "Rates", "Percent Change", "Conditional %", "Evidence Strength"],
+    sheet: crimeSheet,
+    levels: {
+      beginning: [
+        q("Incident Rate", "Rate per 1,000", "South has 12,000 residents and 312 incidents.", "What is the incident rate per 1,000?", "number", 26, " per 1,000", "", "312 divided by 12,000 times 1,000.", "26 incidents per 1,000."),
+        q("Crime Percentage", "Percentage", "Northside had 75 thefts among 300 reports.", "What percentage were thefts?", "number", 25, "%", "", "75 divided by 300 times 100.", "25% were thefts."),
+        q("Compare Precincts", "Rate Comparison", "North: 396/18,000. South: 312/12,000.", "Which has the higher rate?", "choice", 1, "", "", "Normalize both per 1,000.", "South has the higher rate.", ["North", "South"])
+      ],
+      intermediate: [
+        q("Time Change", "Percent Change", "Incidents fell from 84 in May to 56 in August.", "What was the percent decrease?", "number", 33.33, "%", "", "(84 - 56) divided by 84 times 100.", "About 33.3%."),
+        q("Description Pattern", "Conditional %", "Target area: 18/60 matches. Elsewhere: 24/180.", "How many percentage points more common is the description in target area?", "number", 16.67, " points", "", "Compute both rates and subtract.", "About 16.7 percentage points."),
+        q("Interpret Pattern", "Association vs Causation", "Late-night burglaries and lighting failures increased together.", "What can you conclude?", "choice", 1, "", "", "Association is not causation.", "There is an association worth investigating.", ["Lighting caused burglaries", "Association worth investigating", "They are unrelated", "Every failure predicts burglary"])
+      ],
+      advanced: [
+        q("Duplicate Record", "Data Integrity", "C-206 appears twice identically.", "What should you do before calculating rates?", "choice", 1, "", "", "Verify before deleting.", "Check source records to see whether it is a duplicate or two incidents.", ["Delete both", "Verify source records", "Count twice", "Replace one"]),
+        q("Standardized Rates", "Rate Comparison", "A: 480/20k; B: 390/13k; C: 540/30k.", "Which has highest rate per 1,000?", "choice", 1, "", "", "Normalize all with same denominator.", "B is 30 per 1,000, highest.", ["A", "B", "C"]),
+        q("Resource Decision", "Multi-Evidence Reasoning", "B has highest rate, concentrated in one property-crime type and time window.", "Best response?", "choice", 2, "", "", "Match intervention to specific pattern.", "Target the pattern, monitor, and reassess.", ["Move all staff permanently", "Ignore B", "Target pattern and reassess", "Use raw counts only"])
+      ]
+    }
   },
   {
-    id: "access-pattern",
-    title: "Access Pattern",
-    description: "Compare insurance status with provider access.",
-    questions: [
-      {
-        skillId: "percentages-rates",
-        skill: "Percentages & Rates",
-        prompt: "What percent of uninsured residents lack a primary care provider?",
-        helper: "Use 130 uninsured residents without a provider out of 200 uninsured residents.",
-        expected: 65,
-        suffix: "%",
-        datasetTitle: "Insurance and Provider Access",
-        rows: providerAccessRows,
-        feedback: "Correct. 130 divided by 200 equals 65%."
-      },
-      {
-        skillId: "averages-totals",
-        skill: "Averages & Totals",
-        prompt: "What is the average number of residents without a provider across the insured and uninsured groups?",
-        helper: "Add 120 and 130, then divide by 2 groups.",
-        expected: 125,
-        datasetTitle: "Insurance and Provider Access",
-        rows: providerAccessRows,
-        feedback: "Correct. The average without-provider count is 125 residents per group."
-      },
-      {
-        skillId: "data-relationships",
-        skill: "Data Relationships",
-        prompt: "How many more uninsured residents lack a provider than uninsured residents with a provider?",
-        helper: "Subtract 70 uninsured residents with a provider from 130 uninsured residents without one.",
-        expected: 60,
-        datasetTitle: "Insurance and Provider Access",
-        rows: providerAccessRows,
-        feedback: "Correct. 130 minus 70 equals 60 residents."
-      },
-      {
-        skillId: "budgeting-tradeoffs",
-        skill: "Budgeting & Trade-offs",
-        prompt: "If navigation support costs $75 for each uninsured resident without a provider, what is the total support cost?",
-        helper: "Multiply 130 uninsured residents without a provider by $75.",
-        expected: 9750,
-        prefix: "$",
-        datasetTitle: "Insurance and Provider Access",
-        rows: providerAccessRows,
-        feedback: "Correct. 130 times $75 equals $9,750."
-      },
-      {
-        skillId: "evidence-reasoning",
-        skill: "Evidence & Reasoning",
-        prompt: "Enter the percentage that best shows the access gap for uninsured residents.",
-        helper: "Use the uninsured group and the no-provider count.",
-        expected: 65,
-        suffix: "%",
-        datasetTitle: "Insurance and Provider Access",
-        rows: providerAccessRows,
-        feedback: "Correct. 65% is strong evidence that uninsured residents face a provider access gap."
-      }
-    ]
+    id: "environment",
+    icon: "Globe",
+    title: "Environmental Analyst",
+    color: "#16937f",
+    tag: "Balance resources and sustainability",
+    skills: ["Data Quality", "Unit Rates", "Projections", "Percent Change", "Optimization"],
+    sheet: environmentSheet,
+    levels: {
+      beginning: [
+        q("Household Use", "Unit Rate", "Mesa uses 232,000 gallons across 800 households.", "Gallons per household?", "number", 290, " gallons", "", "232,000 divided by 800.", "290 gallons per household."),
+        q("Conservation", "Percent Change", "Use fell from 700,000 to 630,000 gallons.", "Percent decrease?", "number", 10, "%", "", "70,000 divided by 700,000 times 100.", "10% decrease."),
+        q("Compare Zones", "Unit Rate", "Mesa 232k/800; Canyon 155k/500.", "Which uses more per household?", "choice", 1, "", "", "Compute both unit rates.", "Canyon: 310 vs Mesa: 290.", ["Mesa", "Canyon"])
+      ],
+      intermediate: [
+        q("Project Demand", "Growth Projection", "Current use 700,000 gallons; projected growth 8%.", "Projected use?", "number", 756000, " gallons", "", "700,000 times 1.08.", "756,000 gallons."),
+        q("Efficiency", "Savings per $1,000", "Rebates $80k save 22M; irrigation $120k save 39M; campaign $35k save 7M.", "Best gallons saved per $1,000?", "choice", 1, "", "", "Divide savings by cost in thousands.", "Irrigation is best.", ["Rebates", "Irrigation", "Campaign"]),
+        q("Outlier", "Data Judgment", "W-305 is more than five times similar meters.", "What next?", "choice", 2, "", "", "Extreme does not equal wrong.", "Verify meter, units, and account conditions.", ["Delete", "Replace with median", "Verify first", "Use without question"])
+      ],
+      advanced: [
+        q("Growth + Conservation", "Compounded Change", "Demand grows 8%, then conservation reduces resulting demand 6%. Current use 700,000.", "Resulting use?", "number", 710640, " gallons", "", "700,000 times 1.08 times .94.", "710,640 gallons."),
+        q("Portfolio", "Budget Optimization", "$150k budget. Rebates $80k/save22M; irrigation $120k/save39M; campaign $35k/save7M.", "Which allowed option saves most?", "choice", 1, "", "", "Compare savings under budget.", "Irrigation alone saves 39M.", ["Rebates + Campaign", "Irrigation only", "Campaign only", "Rebates only"]),
+        q("Recommendation", "Systems Reasoning", "Town faces growth and a verified high-use industrial account.", "Strongest recommendation?", "choice", 2, "", "", "Segment different sources of demand.", "Separate structural high-use accounts from household demand and target by segment.", ["Same target for all", "Ignore industrial account", "Segment and target", "Use totals only"])
+      ]
+    }
   },
   {
-    id: "grant-decision",
-    title: "Grant Decision",
-    description: "Use budget reasoning to decide what Riverton can fund.",
-    questions: [
-      {
-        skillId: "percentages-rates",
-        skill: "Percentages & Rates",
-        prompt: "What percentage of the $500,000 grant would insurance enrollment use?",
-        helper: "Divide $120,000 by $500,000 and multiply by 100.",
-        expected: 24,
-        suffix: "%",
-        datasetTitle: "Program Options",
-        rows: grantDecisionRows,
-        feedback: "Correct. Insurance enrollment would use 24% of the grant."
-      },
-      {
-        skillId: "averages-totals",
-        skill: "Averages & Totals",
-        prompt: "What is the average cost of the three listed activities?",
-        helper: "Add $120,000, $80,000, and $50,000, then divide by 3.",
-        expected: 83333.33,
-        prefix: "$",
-        datasetTitle: "Program Options",
-        rows: grantDecisionRows,
-        feedback: "Correct. The average listed activity cost is about $83,333.33."
-      },
-      {
-        skillId: "data-relationships",
-        skill: "Data Relationships",
-        prompt: "How many more residents do workshops reach than enrollment support?",
-        helper: "Subtract 900 enrollment residents from 1,400 workshop residents.",
-        expected: 500,
-        datasetTitle: "Program Options",
-        rows: grantDecisionRows,
-        feedback: "Correct. Workshops reach 500 more residents than enrollment support."
-      },
-      {
-        skillId: "budgeting-tradeoffs",
-        skill: "Budgeting & Trade-offs",
-        prompt: "How much remains after funding enrollment, workshops, and evaluation?",
-        helper: "Subtract $250,000 in planned spending from the $500,000 grant.",
-        expected: 250000,
-        prefix: "$",
-        datasetTitle: "Program Options",
-        rows: grantDecisionRows,
-        feedback: "Correct. The remaining reserve is $250,000."
-      },
-      {
-        skillId: "evidence-reasoning",
-        skill: "Evidence & Reasoning",
-        prompt: "What percentage of the grant remains as reserve after the listed activities?",
-        helper: "Divide the $250,000 reserve by the $500,000 grant and multiply by 100.",
-        expected: 50,
-        suffix: "%",
-        datasetTitle: "Program Options",
-        rows: grantDecisionRows,
-        feedback: "Correct. Half of the grant, or 50%, remains as reserve."
-      }
-    ]
-  },
-  {
-    id: "recommendation",
-    title: "Recommendation",
-    description: "Select the strongest evidence for a final recommendation.",
-    questions: [
-      {
-        skillId: "percentages-rates",
-        skill: "Percentages & Rates",
-        prompt: "What percentage in the evidence summary represents the access gap?",
-        helper: "Find the Access gap row and use its percentage.",
-        expected: 65,
-        suffix: "%",
-        datasetTitle: "Evidence Summary",
-        rows: evidenceSummaryRows,
-        feedback: "Correct. The access gap is 65%."
-      },
-      {
-        skillId: "averages-totals",
-        skill: "Averages & Totals",
-        prompt: "What is the average of the economic need rate and access gap percentage?",
-        helper: "Add 34 and 65, then divide by 2.",
-        expected: 49.5,
-        suffix: "%",
-        datasetTitle: "Evidence Summary",
-        rows: evidenceSummaryRows,
-        feedback: "Correct. The average of 34% and 65% is 49.5%."
-      },
-      {
-        skillId: "data-relationships",
-        skill: "Data Relationships",
-        prompt: "How many percentage points larger is the access gap than the economic need rate?",
-        helper: "Subtract 34% from 65%.",
-        expected: 31,
-        suffix: "points",
-        datasetTitle: "Evidence Summary",
-        rows: evidenceSummaryRows,
-        feedback: "Correct. 65 minus 34 equals a 31-point difference."
-      },
-      {
-        skillId: "budgeting-tradeoffs",
-        skill: "Budgeting & Trade-offs",
-        prompt: "How much intervention funding is available?",
-        helper: "Use the available grant value in the evidence summary.",
-        expected: 500000,
-        prefix: "$",
-        datasetTitle: "Evidence Summary",
-        rows: evidenceSummaryRows,
-        feedback: "Correct. Riverton has $500,000 in intervention funding."
-      },
-      {
-        skillId: "evidence-reasoning",
-        skill: "Evidence & Reasoning",
-        prompt: "If 65% is the access gap and 34% is the economic need rate, what is their combined evidence score?",
-        helper: "Add 65 and 34.",
-        expected: 99,
-        datasetTitle: "Evidence Summary",
-        rows: evidenceSummaryRows,
-        feedback: "Correct. The combined evidence score is 99."
-      }
-    ]
+    id: "sports",
+    icon: "Basketball",
+    title: "Sports Performance Analyst",
+    color: "#e98224",
+    tag: "Turn player data into decisions",
+    skills: ["Data Quality", "Percentages", "Averages", "Efficiency", "Uncertainty"],
+    sheet: sportsSheet,
+    levels: {
+      beginning: [
+        q("Shooting %", "Percentage", "Taylor made 31 of 62 shots.", "Shooting percentage?", "number", 50, "%", "", "31 divided by 62 times 100.", "50%."),
+        q("Scoring Average", "Mean", "Scores: 18, 24, 15, 27, 21.", "Average?", "number", 21, " points", "", "Add and divide by 5.", "21 points."),
+        q("Net Rating", "Difference", "A: 112 offense, 108 defense. B: 109 offense, 101 defense.", "Better net rating?", "choice", 1, "", "", "Offense minus defense.", "B is +8 vs A +4.", ["A", "B"])
+      ],
+      intermediate: [
+        q("Compare Shooters", "Percentage Points", "Taylor 31/62; Jordan 38/80.", "How many points higher is Taylor?", "number", 2.5, " points", "", "Compute both percentages.", "Taylor is 2.5 points higher."),
+        q("Expected Points", "Rate Application", "1.12 points per possession over 75 possessions.", "Expected points?", "number", 84, " points", "", "1.12 times 75.", "84 points."),
+        q("Small Sample", "Interpretation", "Reserve shot 70% on 10 attempts; starter 51% on 400.", "Most defensible conclusion?", "choice", 1, "", "", "Consider rate and sample size.", "Reserve was better in one game, but evidence is too small for a strong overall claim.", ["Reserve definitely better", "Promising but too small a sample", "Starter definitely worse", "Sample size irrelevant"])
+      ],
+      advanced: [
+        q("Weighted Shooting", "Weighted Percentage", "55% on 40 twos and 40% on 30 threes.", "Combined FG percentage?", "number", 48.57, "%", "", "Find total makes over 70 attempts.", "34/70 is about 48.6%."),
+        q("Lineup Trade-off", "Multi-Metric", "A: offense 116, defense 111. B: offense 111, defense 102.", "Which has stronger net rating?", "choice", 1, "", "", "Offense minus defense.", "B is +9 vs A +5.", ["A", "B"]),
+        q("Coach Decision", "Decision Under Uncertainty", "B is +9 over 42 possessions; A is +5 over 620.", "Strongest recommendation?", "choice", 2, "", "", "Balance effect size with sample size.", "Test B more while treating current advantage as promising but uncertain.", ["Replace A permanently", "Ignore B", "Test B more", "Use offense only"])
+      ]
+    }
   }
 ];
 
-export const challengeQuestions = challengePathData.flatMap((path, pathIndex) =>
-  path.questions.map((question, questionIndex) => ({
-    ...question,
-    id: `${path.id}-${questionIndex + 1}`,
-    pathId: path.id,
-    pathTitle: path.title,
-    pathIndex,
-    questionIndex
-  }))
+function slug(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+const auditIssueIndexesByLevel = {
+  beginning: [0, 1, 2, 5],
+  intermediate: [0, 1, 3, 5],
+  advanced: [0, 1, 2, 3, 4, 5]
+};
+
+function getAuditIssues(sheet, levelId) {
+  return auditIssueIndexesByLevel[levelId].map((issueIndex) => sheet.issues[issueIndex]);
+}
+
+export const challengePathSkills = [
+  { id: "data-quality", title: "Data Quality", description: "Inspect messy source data before analysis." },
+  { id: "rates-percentages", title: "Rates & Percentages", description: "Calculate rates, percentages, and normalized comparisons." },
+  { id: "averages-weighted", title: "Averages & Weighted Measures", description: "Use means, weighted averages, and expected values." },
+  { id: "comparisons-change", title: "Comparisons & Change", description: "Compare groups, differences, percent change, and patterns." },
+  { id: "decision-optimization", title: "Decision & Optimization", description: "Use evidence, trade-offs, and uncertainty to recommend action." }
+];
+
+function getSkillGroupId(skill) {
+  const key = skill.toLowerCase();
+  if (key.includes("quality") || key.includes("integrity") || key.includes("judgment") || key.includes("outlier")) return "data-quality";
+  if (key.includes("percent") || key.includes("rate") || key.includes("conditional")) return "rates-percentages";
+  if (key.includes("average") || key.includes("weighted") || key.includes("mean") || key.includes("expected")) return "averages-weighted";
+  if (key.includes("comparison") || key.includes("compare") || key.includes("change") || key.includes("difference") || key.includes("association")) return "comparisons-change";
+  return "decision-optimization";
+}
+
+export const challengePathData = personaData.map((persona) => ({
+  id: persona.id,
+  title: persona.title,
+  description: persona.tag,
+  color: persona.color,
+  icon: persona.icon,
+  skills: persona.skills,
+  levels: persona.levels,
+  sheet: persona.sheet,
+  questions: [
+    {
+      id: `${persona.id}-beginning-data-lab`,
+      activityType: "audit",
+      levelId: "beginning",
+      skillId: "data-quality",
+      skill: "Data Quality",
+      title: "Data Lab",
+      prompt: personaLevels.beginning.auditPrompt,
+      scenario: `Before making a decision as a ${persona.title}, inspect the raw spreadsheet for the level-specific data-quality issues.`,
+      helper: "Check missing values, impossible values, inconsistent labels, duplicates, and suspicious outliers.",
+      feedback: "Good. Data cleaning is a reasoning task.",
+      expected: personaLevels.beginning.auditNeed,
+      correctIssueIndexes: persona.sheet.auditCorrectByLevel.beginning,
+      auditIssues: getAuditIssues(persona.sheet, "beginning"),
+      sheet: persona.sheet
+    },
+    ...persona.levels.beginning
+  ]
+}));
+
+export const personaActivities = personaData.flatMap((persona, personaIndex) =>
+  Object.entries(personaLevels).flatMap(([levelId, level], levelIndex) => [
+    {
+      id: `${persona.id}-${levelId}-data-lab`,
+      personaId: persona.id,
+      personaIndex,
+      levelId,
+      levelIndex,
+      activityIndex: 0,
+      activityType: "audit",
+      skillId: "data-quality",
+      skill: "Data Quality",
+      title: "Data Lab",
+      prompt: level.auditPrompt,
+      scenario: `Before making a decision as a ${persona.title}, inspect the raw spreadsheet for the ${level.title.toLowerCase()} data-quality target.`,
+      helper: "Check missing values, impossible values, inconsistent labels, duplicates, and suspicious outliers.",
+      feedback: `You flagged enough items for verification at the ${level.title} level. An anomaly is a reason to investigate, not automatic permission to delete.`,
+      expected: level.auditNeed,
+      correctIssueIndexes: persona.sheet.auditCorrectByLevel[levelId],
+      auditIssues: getAuditIssues(persona.sheet, levelId),
+      sheet: persona.sheet
+    },
+    ...persona.levels[levelId].map((question, index) => ({
+      ...question,
+      id: `${persona.id}-${levelId}-${index + 1}`,
+      personaId: persona.id,
+      personaIndex,
+      levelId,
+      levelIndex,
+      activityIndex: index + 1,
+      activityType: "question",
+      skillId: getSkillGroupId(question.skill),
+      sheet: persona.sheet
+    }))
+  ])
 );
+
+export const challengeQuestions = personaActivities;
 
 export const skillQuestionGroups = challengePathSkills.map((skill) => ({
   ...skill,
-  questions: challengeQuestions.filter((question) => question.skillId === skill.id)
+  questions: personaActivities.filter((activity) => activity.skillId === skill.id)
 }));
 
 export const progressByRoute = {
-  start: 15,
-  sprint: 30,
-  ido: 45,
-  wedo: 65,
-  youdo: 85,
-  brief: 100
+  continue: 10,
+  "challenge-paths": 10
 };
 
-export const bossQuestions = [
-  {
-    question: "What is 25% of 80?",
-    options: ["10", "20", "25", "40"],
-    correct: 1,
-    explanation: "25% is one fourth, and one fourth of 80 is 20."
-  },
-  {
-    question: "50 of 200 students reported high stress. What percentage is this?",
-    options: ["20%", "25%", "40%", "50%"],
-    correct: 1,
-    explanation: "50 divided by 200 times 100 = 25%."
-  },
-  {
-    question: "30 of 120 exercisers have elevated blood pressure. What row percentage is this?",
-    options: ["20%", "25%", "30%", "40%"],
-    correct: 1,
-    explanation: "30 divided by 120 times 100 = 25%."
-  },
-  {
-    question: "Which denominator should be used for the percentage of non-exercisers with elevated blood pressure?",
-    options: ["All students", "All students with elevated BP", "All non-exercisers", "All exercisers"],
-    correct: 2,
-    explanation: "Use the total for the group named in the question: all non-exercisers."
-  },
-  {
-    question: "A two-way table compares exercise status and blood-pressure category. What type of variables are these?",
-    options: ["Two categorical variables", "Two continuous variables", "One of each", "No variables"],
-    correct: 0,
-    explanation: "Both exercise status and blood-pressure category are categorical variables."
-  },
-  {
-    question: "Which table best compares blood-pressure categories within each exercise group?",
-    options: ["Grand-total percentages", "Row percentages", "Column totals", "Student IDs"],
-    correct: 1,
-    explanation: "Row percentages compare outcomes within each exercise group."
-  },
-  {
-    question: "75% of exercisers and 50% of non-exercisers have normal BP. What is the percentage-point difference?",
-    options: ["15", "20", "25", "50"],
-    correct: 2,
-    explanation: "75 - 50 = 25 percentage points."
-  },
-  {
-    question: "Which claim is supported by the table?",
-    options: [
-      "Exercise definitely causes normal BP",
-      "The variables appear associated in this sample",
-      "BP causes exercise",
-      "No comparison is possible"
-    ],
-    correct: 1,
-    explanation: "The table may provide evidence of association, but it does not prove causation."
-  },
-  {
-    question: "30 of 70 students in a column exercise regularly. What column percentage is this?",
-    options: ["30%", "42.9%", "50%", "70%"],
-    correct: 1,
-    explanation: "30 divided by 70 times 100 is approximately 42.9%."
-  },
-  {
-    question: "Which limitation is appropriate for a campus health survey?",
-    options: [
-      "Percentages cannot be calculated",
-      "Self-reported data may be inaccurate",
-      "Tables prove causation",
-      "Totals must equal zero"
-    ],
-    correct: 1,
-    explanation: "Self-reported information can contain reporting errors or bias."
-  }
-];
-
-export const bloodPressureTable = [
-  { exercise: "Yes", normal: 90, elevated: 30, total: 120 },
-  { exercise: "No", normal: 40, elevated: 40, total: 80 },
-  { exercise: "Total", normal: 130, elevated: 70, total: 200 }
-];
-
-export const rowPercentTable = [
-  { exercise: "Yes", normal: "75%", elevated: "25%", total: "100%" },
-  { exercise: "No", normal: "50%", elevated: "50%", total: "100%" }
-];
-
 export const beaconMessages = {
-  start: "Start by naming the pattern you expect. I will keep nudging you back to evidence instead of guesses.",
-  sprint: "Sprint mode is for fast practice. Watch the denominator in every percentage question.",
-  ido: "In I Do, focus on the group named by the question. That group gives you the denominator.",
-  wedo: "We are working together now. Choose the row total for students who do not exercise regularly.",
-  youdo: "Build the table first, then compare row percentages so the group sizes are fair.",
-  brief: "Wrap the investigation with a clear claim, evidence, and a limitation."
+  start: "Beacon Persona Simulations: choose a role, inspect the data, then solve the problem.",
+  continue: "Choose a role. Inspect the data. Solve the problem. A precise calculation on unreliable data can still produce a poor decision.",
+  "challenge-paths": "Choose a persona path, then inspect evidence and reason through the professional decision."
 };
 
 export const beaconQuickActions = {
-  "Explain the data": "This dataset compares exercise habits with blood-pressure categories. The key move is comparing percentages within each exercise group, not just raw counts.",
-  "Give me a hint": "Look for the exact group named in the question. Its total is the denominator for the percentage.",
-  "Check my thinking": "A strong answer names the group, uses the correct denominator, includes a percentage, and explains what that percentage means in context.",
-  "Connect to the big picture": "Health teams use tables like this to notice patterns, ask better questions, and decide where more evidence is needed."
+  "Explain the data": "Start by identifying what each row represents, which values look impossible or inconsistent, and whether the data can support the decision.",
+  "Check my thinking": "A strong answer names the quantity, uses the right relationship, keeps units clear, and explains what the result means for the role.",
+  "Connect to the big picture": "Numbers become useful when they inform action, reveal a trade-off, or tell you what evidence to collect next."
 };
+
+export const bossQuestions = [];
+export const bloodPressureTable = [];
+export const rowPercentTable = [];
+export const challengeSteps = [];

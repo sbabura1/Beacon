@@ -3,7 +3,7 @@ export function BeaconSidebar({ message, onQuickAction }) {
 
   return (
     <aside className="beacon-sidebar" aria-label="Beacon assistant">
-      <div className="beacon-message">{message}</div>
+      {message && <div className="beacon-message">{message}</div>}
 
       <div className="beacon-actions" aria-label="Beacon quick actions">
         {actions.map((action) => (
