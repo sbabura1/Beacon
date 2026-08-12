@@ -138,6 +138,7 @@ export const personaData = [
     title: "Health Administrator",
     color: "#078f72",
     tag: "Improve access while controlling costs",
+    challengeDescription: "Audit messy patient records, calculate access gaps, and choose the best care-investment plan.",
     skills: ["Data Quality", "Percentages", "Weighted Average", "Bivariate Tables", "Budgeting"],
     sheet: healthSheet,
     levels: {
@@ -164,6 +165,7 @@ export const personaData = [
     title: "Crime Detective",
     color: "#167fbd",
     tag: "Use evidence to identify patterns",
+    challengeDescription: "Clean incident data, compare normalized crime rates, and decide where evidence supports action.",
     skills: ["Data Quality", "Rates", "Percent Change", "Conditional %", "Evidence Strength"],
     sheet: crimeSheet,
     levels: {
@@ -190,6 +192,7 @@ export const personaData = [
     title: "Environmental Analyst",
     color: "#16937f",
     tag: "Balance resources and sustainability",
+    challengeDescription: "Inspect water-use records, project demand, and recommend a sustainable resource strategy.",
     skills: ["Data Quality", "Unit Rates", "Projections", "Percent Change", "Optimization"],
     sheet: environmentSheet,
     levels: {
@@ -216,6 +219,7 @@ export const personaData = [
     title: "Sports Performance Analyst",
     color: "#e98224",
     tag: "Turn player data into decisions",
+    challengeDescription: "Check performance data, compare efficiency, and make a coaching recommendation under uncertainty.",
     skills: ["Data Quality", "Percentages", "Averages", "Efficiency", "Uncertainty"],
     sheet: sportsSheet,
     levels: {

@@ -242,14 +242,26 @@
 }
 
 .persona-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .persona-list-card {
-  min-height: 88px;
+  min-height: 116px;
   border-top: 4px solid var(--persona-color, var(--shine-teal));
   animation: shineCardEnter 280ms ease both;
   animation-delay: calc(var(--stagger-index, 0) * 70ms);
+}
+
+.persona-list-card > span:last-child {
+  display: grid;
+  gap: 4px;
+}
+
+.persona-list-card .persona-challenge-description {
+  max-width: 760px;
+  color: var(--shine-muted-dim);
+  font-size: 13px;
+  line-height: 1.38;
 }
 
 .persona-icon {

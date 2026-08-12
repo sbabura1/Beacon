@@ -353,6 +353,7 @@ export function CurrentSimulationView({
                 <span>
                   <strong>{persona.title}</strong>
                   <small>{persona.tag}</small>
+                  <small className="persona-challenge-description">{persona.challengeDescription}</small>
                 </span>
               </button>
             );
