@@ -675,10 +675,14 @@
 
 .constellation-map {
   position: relative;
-  height: 340px;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  min-height: 0;
+  overflow: visible;
   border: 1px solid var(--shine-border);
   border-radius: 18px;
+  padding: 24px 18px;
   background: radial-gradient(circle at 50% 50%, rgba(255, 196, 61, 0.13), transparent 34%), linear-gradient(var(--shine-panel), var(--shine-surface-subtle));
 }
 
@@ -699,29 +703,28 @@
 
 .constellation-line.vertical {
   left: 50%;
-  top: 18%;
+  top: 28px;
   width: 2px;
-  height: 58%;
+  height: calc(100% - 56px);
 }
 
 .constellation-line.horizontal {
-  left: 24%;
-  top: 48%;
-  width: 52%;
-  height: 2px;
+  display: none;
 }
 
 .constellation-node {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  min-width: 112px;
-  min-height: 44px;
+  justify-self: center;
+  width: min(100%, 230px);
+  min-width: 0;
+  min-height: 58px;
   display: grid;
   place-items: center;
   gap: 2px;
-  transform: translate(-50%, -50%);
+  transform: none;
   border: 2px solid var(--shine-border);
-  border-radius: 999px;
+  border-radius: 18px;
   background: var(--shine-surface-muted);
   color: var(--shine-ink);
   cursor: pointer;
@@ -737,7 +740,7 @@
 .constellation-node span,
 .constellation-node small {
   display: block;
-  max-width: 132px;
+  max-width: 190px;
   overflow-wrap: anywhere;
   text-align: center;
   line-height: 1.15;
@@ -749,7 +752,7 @@
 }
 
 .constellation-node:hover {
-  transform: translate(-50%, calc(-50% - 2px));
+  transform: translateY(-2px);
   border-color: var(--shine-teal-border);
   box-shadow: 0 0 24px rgba(8, 168, 138, 0.24);
 }
@@ -769,15 +772,18 @@
 }
 
 .constellation-node.wide {
-  min-width: 148px;
+  min-width: 0;
 }
 
-.top-node { left: 50%; top: 14%; }
-.middle-node { left: 50%; top: 34%; }
-.left-node { left: 27%; top: 48%; }
-.right-node { left: 73%; top: 48%; }
-.lower-node { left: 50%; top: 63%; }
-.bottom-node { left: 50%; top: 84%; }
+.top-node,
+.middle-node,
+.left-node,
+.right-node,
+.lower-node,
+.bottom-node {
+  left: auto;
+  top: auto;
+}
 
 .completion-overlay {
   position: fixed;
