@@ -70,6 +70,15 @@
     animation: none !important;
     transition-duration: 0.01ms !important;
   }
+
+  .gamified-backdrop__gas,
+  .gamified-backdrop__rails,
+  .gamified-backdrop__beams,
+  .gamified-backdrop__hex,
+  .gamified-backdrop__mesh,
+  .gamified-backdrop__grid {
+    animation: none !important;
+  }
 }
 
 @media (max-width: 760px) {

@@ -1,7 +1,7 @@
 ﻿.studio-shell,
 .navigator-shell {
   min-height: 100vh;
-  background: var(--shine-background);
+  background: transparent;
 }
 
 .app-title-card {
@@ -16,30 +16,83 @@
   margin: 10px auto 8px;
   border: 1px solid var(--shine-border);
   border-radius: var(--shine-radius-lg);
-  background: linear-gradient(135deg, rgba(31, 34, 33, 0.94), rgba(19, 22, 21, 0.94));
+  background: var(--shine-hero-gradient);
+  backdrop-filter: var(--shine-glass);
   padding: 16px 18px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--shine-shadow-soft);
   overflow: hidden;
+  transition: background var(--shine-motion-slow) var(--shine-ease), border-color var(--shine-motion-base) var(--shine-ease), box-shadow var(--shine-motion-base) var(--shine-ease), transform var(--shine-motion-base) var(--shine-ease);
 }
 
 :root[data-theme="light"] .app-title-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(243, 246, 245, 0.96));
-  box-shadow: 0 10px 28px rgba(20, 30, 28, 0.08);
+  background: var(--shine-hero-gradient);
+  box-shadow: var(--shine-shadow-soft);
 }
 
 :root[data-theme="light"] .challenge-sidebar,
 :root[data-theme="light"] .beacon-sidebar,
 :root[data-theme="light"] .studio-card,
 :root[data-theme="light"] .recommendation-card {
-  background: linear-gradient(145deg, #ffffff, #f6f8f7);
+  background: var(--shine-card-gradient);
 }
 
 .app-title-card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 5px;
-  background: var(--shine-spectrum);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(13, 186, 255, 0.74), rgba(18, 115, 220, 0.62), transparent);
+}
+
+.app-title-card::after,
+.studio-card::after,
+.recommendation-card::after,
+.challenge-sidebar::after,
+.beacon-sidebar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(118deg, transparent 0 24%, rgba(13, 186, 255, 0.16) 24.2% 24.45%, transparent 24.75% 100%),
+    linear-gradient(304deg, transparent 0 78%, rgba(18, 115, 220, 0.12) 78.2% 78.48%, transparent 78.8% 100%),
+    radial-gradient(circle at 78% 16%, rgba(13, 186, 255, 0.08), transparent 28%);
+  opacity: 0.56;
+  mask-image: linear-gradient(145deg, #000 0 28%, transparent 72%);
+}
+
+.studio-card::before,
+.recommendation-card::before,
+.challenge-sidebar::before,
+.beacon-sidebar::before,
+.quest-card::before,
+.prompt-card::before,
+.calculation-card::before,
+.beacon-message::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 0 64%, rgba(13, 186, 255, 0.12) 64.2% 64.55%, transparent 64.85% 100%),
+    linear-gradient(45deg, transparent 0 12%, rgba(18, 115, 220, 0.08) 12.2% 12.5%, transparent 12.8% 100%);
+  opacity: 0.42;
+  mask-image: linear-gradient(90deg, #000 0 18%, transparent 82%);
+}
+
+.app-title-card > *,
+.studio-card > *,
+.recommendation-card > *,
+.challenge-sidebar > *,
+.beacon-sidebar > *,
+.quest-card > *,
+.prompt-card > *,
+.calculation-card > *,
+.beacon-message > * {
+  position: relative;
+  z-index: 1;
 }
 
 .brand-title {
@@ -94,19 +147,31 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 12px;
+  border-radius: var(--shine-radius-lg);
   border: 1px solid transparent;
   padding: 10px 14px;
   cursor: pointer;
   font-weight: 800;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  transition: transform var(--shine-motion-fast) var(--shine-ease-spring), box-shadow var(--shine-motion-base) var(--shine-ease), background var(--shine-motion-base) var(--shine-ease), border-color var(--shine-motion-fast) var(--shine-ease), color var(--shine-motion-fast) var(--shine-ease);
 }
 
 .icon-button,
 .primary-button {
   border-color: var(--shine-teal);
-  background: var(--shine-teal);
-  color: white;
+  background:
+    linear-gradient(45deg, transparent 0 46%, rgba(255, 255, 255, 0.28) 46.2% 46.8%, transparent 47% 100%),
+    linear-gradient(135deg, var(--shine-teal), var(--shine-blue));
+  color: #06111f;
+  box-shadow: 0 10px 24px rgba(99, 230, 190, 0.18);
+}
+
+:root[data-theme="light"] .primary-button {
+  border-color: rgba(13, 186, 255, 0.5);
+  background:
+    linear-gradient(45deg, transparent 0 46%, rgba(13, 186, 255, 0.34) 46.2% 46.8%, transparent 47% 100%),
+    linear-gradient(135deg, rgba(3, 11, 22, 0.98), rgba(8, 34, 65, 0.96));
+  color: #f6fbff;
+  box-shadow: 0 10px 22px rgba(1, 8, 18, 0.22), inset 0 0 0 1px rgba(13, 186, 255, 0.18);
 }
 
 .secondary-button,
@@ -114,25 +179,36 @@
   border-color: var(--shine-border);
   background: var(--shine-surface-subtle);
   color: var(--shine-green-dark);
+  backdrop-filter: blur(12px);
 }
 
 .icon-button:hover,
 .primary-button:hover,
 .secondary-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(8, 168, 138, 0.2);
+  box-shadow: 0 12px 26px rgba(99, 230, 190, 0.2), 0 0 0 1px rgba(120, 167, 255, 0.1);
 }
 
 .primary-button:hover,
 .icon-button:hover {
   border-color: var(--shine-teal-hover);
-  background: var(--shine-teal-hover);
+  background:
+    linear-gradient(45deg, transparent 0 46%, rgba(255, 255, 255, 0.34) 46.2% 46.8%, transparent 47% 100%),
+    linear-gradient(135deg, var(--shine-teal-hover), var(--shine-blue));
+}
+
+:root[data-theme="light"] .primary-button:hover {
+  border-color: rgba(13, 186, 255, 0.72);
+  background:
+    linear-gradient(45deg, transparent 0 46%, rgba(13, 186, 255, 0.44) 46.2% 46.8%, transparent 47% 100%),
+    linear-gradient(135deg, rgba(5, 20, 38, 1), rgba(11, 53, 94, 0.98));
+  box-shadow: 0 12px 26px rgba(1, 8, 18, 0.26), 0 0 0 1px rgba(13, 186, 255, 0.18);
 }
 
 .primary-button:active,
 .icon-button:active,
 .secondary-button:active {
-  transform: scale(0.98);
+  transform: scale(0.975);
 }
 
 .studio-grid {
@@ -146,19 +222,23 @@
 .beacon-sidebar,
 .studio-card,
 .recommendation-card {
+  position: relative;
   border: 1px solid var(--shine-border);
-  border-radius: 18px;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--shine-panel) 92%, transparent), color-mix(in srgb, var(--shine-bg) 88%, var(--shine-teal) 3%));
-  box-shadow: var(--shine-shadow);
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+  border-radius: var(--shine-radius-lg);
+  background: var(--shine-card-gradient);
+  backdrop-filter: var(--shine-glass);
+  box-shadow: var(--shine-shadow), inset 0 0 0 1px rgba(13, 186, 255, 0.03);
+  overflow: hidden;
+  transition: transform var(--shine-motion-base) var(--shine-ease-spring), border-color var(--shine-motion-base) var(--shine-ease), box-shadow var(--shine-motion-base) var(--shine-ease), background var(--shine-motion-slow) var(--shine-ease);
 }
 
 .studio-card:hover,
 .recommendation-card:hover,
 .challenge-sidebar:hover,
 .beacon-sidebar:hover {
-  border-color: rgba(25, 198, 165, 0.44);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(8, 168, 138, 0.06);
+  border-color: rgba(13, 186, 255, 0.42);
+  transform: translateY(-2px);
+  box-shadow: var(--shine-shadow), 0 0 0 1px rgba(13, 186, 255, 0.1), 0 0 18px rgba(13, 186, 255, 0.08);
 }
 
 .shine-panel {
@@ -166,6 +246,7 @@
   border: 1px solid var(--shine-border);
   border-radius: var(--shine-radius-lg);
   box-shadow: var(--shine-shadow);
+  backdrop-filter: var(--shine-glass);
 }
 
 .shine-panel-raised {
@@ -232,13 +313,17 @@
 .prompt-card,
 .calculation-card,
 .beacon-message {
+  position: relative;
   display: grid;
   gap: 5px;
   border: 1px solid rgba(55, 208, 173, 0.2);
-  border-radius: 16px;
-  background: var(--shine-green-soft);
+  border-radius: var(--shine-radius-lg);
+  background:
+    linear-gradient(135deg, rgba(13, 186, 255, 0.08), transparent 48%),
+    var(--shine-green-soft);
   color: var(--shine-green-dark);
   padding: 14px;
+  overflow: hidden;
 }
 
 .quest-card strong {
@@ -261,28 +346,32 @@
   height: 10px;
   overflow: hidden;
   border-radius: 999px;
-  background: var(--shine-surface-muted);
+  background: linear-gradient(90deg, var(--shine-surface-muted), rgba(120, 167, 255, 0.1));
+  box-shadow: inset 0 0 0 1px var(--shine-border);
 }
 
 .progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--shine-green), var(--shine-teal), var(--shine-blue));
-  transition: width 300ms ease;
+  background: linear-gradient(90deg, var(--shine-blue), var(--shine-teal), var(--shine-yellow));
+  box-shadow: 0 0 18px rgba(99, 230, 190, 0.34);
+  transition: width var(--shine-motion-slow) var(--shine-ease);
 }
 
 .shine-progress {
   height: 9px;
   overflow: hidden;
   border-radius: var(--shine-radius-pill);
-  background: var(--shine-surface-muted);
+  background: linear-gradient(90deg, var(--shine-surface-muted), rgba(120, 167, 255, 0.1));
+  box-shadow: inset 0 0 0 1px var(--shine-border);
 }
 
 .shine-progress__fill {
   height: 100%;
   border-radius: inherit;
-  background: var(--shine-teal);
-  transition: width 300ms ease;
+  background: linear-gradient(90deg, var(--shine-blue), var(--shine-teal), var(--shine-yellow));
+  box-shadow: 0 0 18px rgba(99, 230, 190, 0.34);
+  transition: width var(--shine-motion-slow) var(--shine-ease);
 }
 
 .step-list {

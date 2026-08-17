@@ -11,15 +11,15 @@
 }
 
 .fancy-cursor {
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
-  border: 1px solid rgba(255, 255, 255, 0.38);
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 1px solid rgba(148, 206, 255, 0.42);
   background:
-    radial-gradient(circle, rgba(255, 196, 61, 0.92) 0 16%, rgba(8, 168, 138, 0.72) 18% 38%, transparent 42%),
-    conic-gradient(from 90deg, #08a88a, #19b7c9, #178bd1, #ef3b78, #f43b39, #ff7a22, #ffc43d, #89c83d, #08a88a);
-  box-shadow: 0 0 18px rgba(8, 168, 138, 0.68), 0 0 34px rgba(59, 130, 246, 0.24);
-  transition: width 0.2s ease, height 0.2s ease, margin 0.2s ease, opacity 0.18s ease, filter 0.2s ease;
+    radial-gradient(circle, rgba(148, 206, 255, 0.9) 0 24%, rgba(13, 186, 255, 0.44) 28% 52%, transparent 56%),
+    conic-gradient(from 90deg, #0dbaff, #1273dc, #0a2f63, #0dbaff);
+  box-shadow: 0 0 10px rgba(13, 186, 255, 0.32);
+  transition: width var(--shine-motion-fast) var(--shine-ease), height var(--shine-motion-fast) var(--shine-ease), margin var(--shine-motion-fast) var(--shine-ease), opacity var(--shine-motion-fast) var(--shine-ease), filter var(--shine-motion-fast) var(--shine-ease);
 }
 
 .fancy-cursor-trail-dot {
@@ -52,17 +52,17 @@
 
 .cursor-click .fancy-cursor {
   transition: width 0.12s ease, height 0.12s ease, margin 0.12s ease;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
 }
 
 .cursor-interactive .fancy-cursor {
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
-  filter: saturate(1.35);
-  box-shadow: 0 0 22px rgba(255, 196, 61, 0.8), 0 0 44px rgba(8, 168, 138, 0.32);
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  filter: saturate(1.12);
+  box-shadow: 0 0 12px rgba(13, 186, 255, 0.38), 0 0 20px rgba(18, 115, 220, 0.16);
 }
 
 :root[data-theme="light"] .fancy-cursor,
@@ -73,9 +73,9 @@
 :root[data-theme="light"] .fancy-cursor {
   border-color: rgba(20, 23, 21, 0.42);
   background:
-    radial-gradient(circle, rgba(20, 23, 21, 0.95) 0 14%, rgba(255, 196, 61, 0.9) 16% 34%, transparent 40%),
-    conic-gradient(from 90deg, #056354, #0f6fbf, #c92f66, #dc3d3d, #e05f0f, #d69712, #078570, #056354);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75), 0 0 18px rgba(7, 133, 112, 0.38);
+    radial-gradient(circle, rgba(20, 23, 21, 0.95) 0 16%, rgba(13, 186, 255, 0.54) 18% 40%, transparent 44%),
+    conic-gradient(from 90deg, #0dbaff, #1273dc, #0a2f63, #0dbaff);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 10px rgba(13, 186, 255, 0.22);
 }
 
 :root[data-theme="light"] .fancy-cursor-trail-dot {
@@ -83,7 +83,7 @@
 }
 
 :root[data-theme="light"] .cursor-interactive .fancy-cursor {
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.82), 0 0 20px rgba(214, 151, 18, 0.5), 0 0 36px rgba(7, 133, 112, 0.22);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.72), 0 0 14px rgba(13, 186, 255, 0.28);
 }
 
 @media (prefers-reduced-motion: reduce) {

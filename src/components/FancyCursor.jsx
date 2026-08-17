@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 
 const TRAIL_COLORS = [
-  "#f43b39",
-  "#ef3b78",
-  "#ff7a22",
-  "#ffc43d",
-  "#89c83d",
-  "#08a88a",
-  "#19b7c9",
-  "#178bd1",
+  "#78a7ff",
+  "#63e6be",
+  "#38bdf8",
+  "#1d4ed8",
+  "#0f3b70",
+  "#9ad8ff",
+  "#8ef4d2",
+  "#5aa7ff",
 ];
 
 const TRAIL_SIZES = [10, 9, 8, 7, 6, 5, 4, 3];

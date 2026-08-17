@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Check, Globe2, Hospital, Lightbulb, Play, Search, ShieldQuestion, Trophy } from "lucide-react";
+import { Check, Flame, Globe2, Hospital, Lightbulb, Play, Search, ShieldQuestion, Trophy } from "lucide-react";
 import { BeaconSidebar } from "../components/BeaconSidebar.jsx";
 import { FeedbackPanel } from "../components/FeedbackPanel.jsx";
 import { ProgressBar } from "../components/ProgressBar.jsx";
@@ -428,7 +428,7 @@ export function CurrentSimulationView({
         </div>
         {streak >= 2 && (
           <div className="streak-badge" aria-live="polite">
-            <span aria-hidden="true">🔥</span>
+            <Flame size={14} aria-hidden="true" />
             <strong>{streak}</strong>
           </div>
         )}

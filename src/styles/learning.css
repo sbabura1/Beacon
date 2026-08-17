@@ -6,13 +6,13 @@
   gap: 10px;
   align-items: center;
   border: 1px solid var(--shine-border);
-  border-radius: 14px;
+  border-radius: var(--shine-radius-lg);
   background: var(--shine-surface-subtle);
   color: var(--shine-ink);
   padding: 11px;
   text-align: left;
   cursor: pointer;
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  transition: transform var(--shine-motion-fast) var(--shine-ease-spring), border-color var(--shine-motion-fast) var(--shine-ease), background var(--shine-motion-base) var(--shine-ease), box-shadow var(--shine-motion-base) var(--shine-ease);
 }
 
 .challenge-step:hover:not(:disabled),
@@ -23,7 +23,7 @@
 .beacon-actions button:hover {
   transform: translateY(-2px);
   border-color: var(--shine-teal-border);
-  box-shadow: 0 10px 22px var(--shine-overlay-card), 0 0 0 1px rgba(8, 168, 138, 0.12);
+  box-shadow: 0 12px 26px var(--shine-overlay-card), 0 0 0 1px rgba(99, 230, 190, 0.12), 0 0 24px rgba(120, 167, 255, 0.08);
 }
 
 .challenge-step.active {
@@ -80,7 +80,7 @@
   margin: -16px -16px 16px;
   padding: 0;
   border-bottom: 1px solid var(--shine-border);
-  border-radius: 18px 18px 0 0;
+  border-radius: var(--shine-radius-lg) var(--shine-radius-lg) 0 0;
   background: var(--shine-beacon-bg);
   overflow: hidden;
 }
@@ -105,8 +105,8 @@
   height: 82px;
   border-radius: 999px;
   background:
-    radial-gradient(circle, rgba(255, 196, 61, 0.16), rgba(8, 168, 138, 0.1) 42%, transparent 70%),
-    conic-gradient(from 120deg, rgba(244, 59, 57, 0.1), rgba(255, 196, 61, 0.12), rgba(8, 168, 138, 0.12), rgba(59, 130, 246, 0.1), rgba(239, 59, 120, 0.08), rgba(244, 59, 57, 0.1));
+    radial-gradient(circle, rgba(247, 215, 116, 0.16), rgba(99, 230, 190, 0.1) 42%, transparent 70%),
+    conic-gradient(from 120deg, rgba(120, 167, 255, 0.08), rgba(247, 215, 116, 0.12), rgba(99, 230, 190, 0.12), rgba(232, 121, 249, 0.08), rgba(120, 167, 255, 0.08));
   filter: blur(14px);
   opacity: 0.42;
   transform: translateY(-50%);
@@ -256,7 +256,7 @@
 .beacon-actions button {
   justify-content: flex-start;
   border: 1px solid var(--shine-border);
-  border-radius: 12px;
+  border-radius: var(--shine-radius-lg);
   background: var(--shine-surface-subtle);
   color: var(--shine-ink);
   padding: 11px;
@@ -275,7 +275,7 @@
   border-collapse: collapse;
   margin: 12px 0;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--shine-radius-lg);
   font-size: 14px;
 }
 
@@ -306,7 +306,7 @@
 .cell-button {
   width: 100%;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--shine-radius-sm);
   background: var(--shine-surface-muted);
   color: var(--shine-ink);
   cursor: pointer;
@@ -328,7 +328,7 @@
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  border-radius: 14px;
+  border-radius: var(--shine-radius-lg);
   margin: 14px 0;
   padding: 13px;
 }
@@ -367,12 +367,35 @@
 
 .metric-grid div,
 .metric-card {
+  position: relative;
   display: grid;
   gap: 3px;
   border: 1px solid var(--shine-border);
-  border-radius: 14px;
+  border-radius: var(--shine-radius-lg);
   padding: 13px;
-  background: var(--shine-surface-subtle);
+  background:
+    linear-gradient(135deg, rgba(13, 186, 255, 0.08), transparent 46%),
+    var(--shine-surface-subtle);
+  overflow: hidden;
+}
+
+.metric-grid div::before,
+.metric-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent 0 70%, rgba(13, 186, 255, 0.12) 70.2% 70.5%, transparent 70.8% 100%),
+    linear-gradient(300deg, transparent 0 8%, rgba(18, 115, 220, 0.08) 8.2% 8.5%, transparent 8.8% 100%);
+  opacity: 0.5;
+  mask-image: linear-gradient(90deg, #000 0 24%, transparent 92%);
+}
+
+.metric-grid div > *,
+.metric-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .beacon-card {
@@ -415,7 +438,7 @@
 
 .answer-option {
   border: 1px solid var(--shine-border);
-  border-radius: 14px;
+  border-radius: var(--shine-radius-lg);
   background: var(--shine-surface-subtle);
   color: var(--shine-ink);
   padding: 16px;
@@ -451,6 +474,6 @@
   width: 100%;
   min-height: 280px;
   border: 0;
-  border-radius: 14px;
+  border-radius: var(--shine-radius-lg);
 }
 

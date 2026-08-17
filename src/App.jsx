@@ -4,6 +4,7 @@ import { BeaconDialog } from "./components/BeaconDialog.jsx";
 import { BeaconSidebar } from "./components/BeaconSidebar.jsx";
 import { ChallengeSidebar } from "./components/ChallengeSidebar.jsx";
 import { FancyCursor } from "./components/FancyCursor.jsx";
+import { GamifiedBackdrop } from "./components/GamifiedBackdrop.jsx";
 import { beaconMessages, beaconQuickActions, challengeSteps, progressByRoute } from "./data/simulationData.js";
 import { BriefView } from "./pages/BriefView.jsx";
 import { CurrentSimulationView } from "./pages/CurrentSimulationView.jsx";
@@ -129,6 +130,7 @@ export default function App() {
 
   return (
     <>
+      <GamifiedBackdrop />
       <FancyCursor />
       {route === "navigator" ? (
         <NavigatorView
