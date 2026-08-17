@@ -40,6 +40,33 @@ export function StudentAvatar({ name = "Student", imageSrc = "", variant = "illu
     );
   }
 
+  if (variant === "male") {
+    return (
+      <span className={`student-avatar student-avatar--illustrated ${className}`} aria-label={`${name} avatar`}>
+        <svg viewBox="0 0 96 96" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="studentAvatarMaleBg" x1="12" x2="84" y1="8" y2="88" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#08A88A" />
+              <stop offset="0.52" stopColor="#3B82F6" />
+              <stop offset="1" stopColor="#FFC43D" />
+            </linearGradient>
+          </defs>
+          <circle className="student-avatar__ring student-avatar__ring--male" cx="48" cy="48" r="45" />
+          <circle className="student-avatar__backdrop" cx="48" cy="48" r="39" />
+          <path className="student-avatar__hair student-avatar__hair--male" d="M27 37c2-15 12-24 27-23 13 1 21 9 22 22-5-5-12-8-21-9-11-1-21 3-28 10Z" />
+          <circle className="student-avatar__face" cx="48" cy="44" r="22" />
+          <path className="student-avatar__neck" d="M41 61h14v10H41z" />
+          <path className="student-avatar__shirt" d="M17 84c6-17 18-25 31-25s25 8 31 25" />
+          <path className="student-avatar__collar" d="M36 62l12 11 12-11" />
+          <circle className="student-avatar__eye" cx="40" cy="43" r="2.4" />
+          <circle className="student-avatar__eye" cx="56" cy="43" r="2.4" />
+          <path className="student-avatar__smile" d="M40 52c4 4 12 4 16 0" />
+          <path className="student-avatar__accent" d="M28 70c6 3 13 4 20 4s14-1 20-4" />
+        </svg>
+      </span>
+    );
+  }
+
   return (
     <span className={`student-avatar student-avatar--illustrated ${className}`} aria-label={`${name} avatar`}>
       <svg viewBox="0 0 96 96" role="img" aria-hidden="true">

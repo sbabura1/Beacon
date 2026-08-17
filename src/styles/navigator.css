@@ -44,12 +44,12 @@
 }
 
 .title-card-actions .icon-button {
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
-  min-height: 36px;
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  min-height: 34px;
   padding: 0;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .title-card-actions .icon-button {
@@ -59,9 +59,9 @@
 }
 
 .title-card-actions .icon-button:hover {
-  border-color: transparent;
-  background: transparent;
-  box-shadow: none;
+  border-color: rgba(13, 186, 255, 0.22);
+  background: rgba(13, 186, 255, 0.06);
+  box-shadow: 0 0 10px rgba(13, 186, 255, 0.12);
 }
 
 .learner-summary {
@@ -88,8 +88,59 @@
 }
 
 .welcome-card .progress-box,
-.welcome-card .learner-summary {
+.welcome-card .learner-summary,
+.welcome-card .home-summary-grid,
+.welcome-card .recommendation-actions,
+.welcome-card .feature-actions {
   grid-column: 1 / -1;
+}
+
+.home-summary-grid,
+.challenge-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.summary-tile {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  min-height: 108px;
+  align-content: center;
+  border: 1px solid var(--shine-border);
+  border-radius: var(--shine-radius-lg);
+  background:
+    linear-gradient(135deg, rgba(13, 186, 255, 0.08), transparent 42%),
+    var(--shine-surface-subtle);
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(13, 186, 255, 0.04);
+}
+
+.summary-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent 0 70%, rgba(13, 186, 255, 0.12) 70.2% 70.5%, transparent 70.8% 100%),
+    linear-gradient(300deg, transparent 0 8%, rgba(18, 115, 220, 0.08) 8.2% 8.5%, transparent 8.8% 100%);
+  opacity: 0.56;
+  mask-image: linear-gradient(90deg, #000 0 26%, transparent 92%);
+}
+
+.summary-tile span,
+.summary-tile small {
+  color: var(--shine-text-soft);
+}
+
+.summary-tile strong {
+  color: var(--shine-ink);
+  font-size: 28px;
+  line-height: 1;
 }
 
 .student-avatar {
@@ -101,8 +152,16 @@
   place-items: center;
   border-radius: 999px;
   background: var(--shine-surface-muted);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 24px var(--shine-overlay-card);
+  box-shadow: inset 0 0 0 1px rgba(13, 186, 255, 0.18), 0 16px 28px rgba(0, 0, 0, 0.24), 0 0 22px rgba(13, 186, 255, 0.08);
   overflow: hidden;
+  transform: perspective(520px) rotateX(4deg) rotateY(-8deg);
+  transform-style: preserve-3d;
+  transition: transform var(--shine-motion-base) var(--shine-ease-spring), filter var(--shine-motion-base) var(--shine-ease), box-shadow var(--shine-motion-base) var(--shine-ease);
+}
+
+.welcome-card:hover .student-avatar {
+  transform: perspective(520px) rotateX(1deg) rotateY(6deg) translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(13, 186, 255, 0.24), 0 18px 30px rgba(0, 0, 0, 0.26), 0 0 24px rgba(13, 186, 255, 0.12);
 }
 
 .student-avatar img,
@@ -114,21 +173,34 @@
 }
 
 .student-avatar--image img {
-  object-fit: cover;
-  transform: none;
-  filter: none;
+  object-fit: contain;
+  transform: translateZ(28px) scale(1.02);
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.24));
 }
 
 .student-avatar--image {
   align-self: start;
   justify-self: end;
-  width: 54px;
-  height: 54px;
-  border: 1px solid var(--shine-border);
-  border-radius: 999px;
-  background: var(--shine-surface-subtle);
+  width: 66px;
+  height: 72px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.student-avatar--image::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 74%;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse, rgba(13, 186, 255, 0.26), transparent 68%);
+  filter: blur(4px);
+  transform: translateX(-50%) rotateX(72deg);
 }
 
 .student-avatar--initials {
@@ -141,6 +213,10 @@
 
 .student-avatar__ring {
   fill: url(#studentAvatarBg);
+}
+
+.student-avatar__ring--male {
+  fill: url(#studentAvatarMaleBg);
 }
 
 .student-avatar__backdrop {
